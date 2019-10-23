@@ -55,30 +55,31 @@
   };
 </script>
 
-  <meta name="description" content="成长记录博客">
+  <meta name="description" content="go基础数据结构实现–链表注：链表的实现分为头结点类型和头指针类型。  头指针类型为：first只是一个指针变量，指向第一个结点。 头结点类型为：first是一个结点，也存在于链表中，但是不访问到。 单链表遍历时通过p := linklist.first.Next语句直接跳过头结点 双链表则通过循环控制条件 p != doublelinklist.first语句判断循环终止，同样会不输出头结点。">
 <meta name="keywords" content="IT Blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="CHD-刘涛">
-<meta property="og:url" content="http:&#x2F;&#x2F;chdliutao.top&#x2F;index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go基础数据结构实现--链表">
+<meta property="og:url" content="http:&#x2F;&#x2F;chdliutao.top&#x2F;2019&#x2F;10&#x2F;23&#x2F;go%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AE%9E%E7%8E%B0--%E9%93%BE%E8%A1%A8&#x2F;index.html">
 <meta property="og:site_name" content="CHD-刘涛">
-<meta property="og:description" content="成长记录博客">
+<meta property="og:description" content="go基础数据结构实现–链表注：链表的实现分为头结点类型和头指针类型。  头指针类型为：first只是一个指针变量，指向第一个结点。 头结点类型为：first是一个结点，也存在于链表中，但是不访问到。 单链表遍历时通过p := linklist.first.Next语句直接跳过头结点 双链表则通过循环控制条件 p != doublelinklist.first语句判断循环终止，同样会不输出头结点。">
 <meta property="og:locale" content="cn">
+<meta property="og:updated_time" content="2019-10-23T09:12:51.064Z">
 <meta name="twitter:card" content="summary">
-  <link rel="canonical" href="http://chdliutao.top/">
+  <link rel="canonical" href="http://chdliutao.top/2019/10/23/go%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AE%9E%E7%8E%B0--%E9%93%BE%E8%A1%A8/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: true,
-    isPost: false,
+    isHome: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>CHD-刘涛</title>
+  <title>go基础数据结构实现--链表 | CHD-刘涛</title>
   
 
 
@@ -193,10 +194,10 @@
             
 
   <div class="posts-expand">
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="cn">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="cn">
     <link itemprop="mainEntityOfPage" href="http://chdliutao.top/2019/10/23/go%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AE%9E%E7%8E%B0--%E9%93%BE%E8%A1%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -211,8 +212,9 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
+            go基础数据结构实现--链表
             
-            <a href="/2019/10/23/go%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AE%9E%E7%8E%B0--%E9%93%BE%E8%A1%A8/" class="post-title-link" itemprop="url">go基础数据结构实现--链表</a>
+
           
         </h1>
 
@@ -242,7 +244,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="go基础数据结构实现–链表"><a href="#go基础数据结构实现–链表" class="headerlink" title="go基础数据结构实现–链表"></a>go基础数据结构实现–链表</h1><p>注：链表的实现分为头结点类型和头指针类型。</p>
+        <h1 id="go基础数据结构实现–链表"><a href="#go基础数据结构实现–链表" class="headerlink" title="go基础数据结构实现–链表"></a>go基础数据结构实现–链表</h1><p>注：链表的实现分为头结点类型和头指针类型。</p>
 <ol>
 <li>头指针类型为：first只是一个指针变量，指向第一个结点。</li>
 <li>头结点类型为：first是一个结点，也存在于链表中，但是不访问到。<ul>
@@ -257,429 +259,42 @@
 
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//go循环双链表实现，循环双链表一般要带有头结点而非头指针，头结点中不存数据。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Node 结点定义</span></span><br><span class="line"><span class="keyword">type</span> Node <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="comment">//数据</span></span><br><span class="line">	Val <span class="keyword">int</span></span><br><span class="line">	<span class="comment">//下一结点地址</span></span><br><span class="line">	Next *Node</span><br><span class="line">	<span class="comment">//上一结点地址</span></span><br><span class="line">	Prior *Node</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//DoubleLinkList 双链表类实现</span></span><br><span class="line"><span class="keyword">type</span> DoubleLinkList <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="comment">//头结点</span></span><br><span class="line">	first *Node</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//头插法初始化链表</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(doublelinklist *DoubleLinkList)</span> <span class="title">newHeadList</span><span class="params">(dataArray []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	length := <span class="built_in">len</span>(dataArray)</span><br><span class="line">	<span class="comment">//初始化头结点，头结点需要自己“抱”自己</span></span><br><span class="line">	first := <span class="built_in">new</span>(Node)</span><br><span class="line">	first.Next = first</span><br><span class="line">	first.Prior = first</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; length; i++ &#123;</span><br><span class="line">		temp := <span class="built_in">new</span>(Node)</span><br><span class="line">		temp.Val = dataArray[i]</span><br><span class="line">		temp.Prior = first</span><br><span class="line">		temp.Next = first.Next</span><br><span class="line">		temp.Next.Prior = temp</span><br><span class="line">		temp.Prior.Next = temp</span><br><span class="line">	&#125;</span><br><span class="line">	doublelinklist.first = first</span><br><span class="line">	fmt.Println(<span class="string">"头插法初始化完毕"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//尾插法初始化链表</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(doublelinklist *DoubleLinkList)</span> <span class="title">newTailList</span><span class="params">(dataArray []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	length := <span class="built_in">len</span>(dataArray)</span><br><span class="line">	<span class="comment">//初始化头结点</span></span><br><span class="line">	first := <span class="built_in">new</span>(Node)</span><br><span class="line">	first.Next = first</span><br><span class="line">	first.Prior = first</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; length; i++ &#123;</span><br><span class="line">		temp := <span class="built_in">new</span>(Node)</span><br><span class="line">		temp.Val = dataArray[i]</span><br><span class="line">		temp.Prior = first.Prior</span><br><span class="line">		temp.Next = first</span><br><span class="line">		temp.Next.Prior = temp</span><br><span class="line">		temp.Prior.Next = temp</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//将首尾相连</span></span><br><span class="line">	doublelinklist.first = first</span><br><span class="line">	fmt.Println(<span class="string">"尾插法初始化完毕"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取单链表长度</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(doublelinklist *DoubleLinkList)</span> <span class="title">getLength</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	count := <span class="number">0</span></span><br><span class="line">	p := doublelinklist.first.Next</span><br><span class="line">	<span class="keyword">for</span> p != doublelinklist.first &#123;</span><br><span class="line">		count++</span><br><span class="line">		p = p.Next</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> count</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//单链表按位查找</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(doublelinklist *DoubleLinkList)</span> <span class="title">getItemByPlace</span><span class="params">(place <span class="keyword">int</span>)</span> <span class="params">(<span class="keyword">bool</span>, <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	p := doublelinklist.first.Next</span><br><span class="line">	count := <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> count &lt; place &#123;</span><br><span class="line">		p = p.Next</span><br><span class="line">		count++</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span>, p.Val</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//单链表按值查找</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(doublelinklist *DoubleLinkList)</span> <span class="title">getItemByNum</span><span class="params">(num <span class="keyword">int</span>)</span> <span class="params">(<span class="keyword">bool</span>, <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	p := doublelinklist.first.Next</span><br><span class="line">	count := <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> p != doublelinklist.first &#123;</span><br><span class="line">		<span class="keyword">if</span> p.Val == num &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>, count</span><br><span class="line">		&#125;</span><br><span class="line">		p = p.Next</span><br><span class="line">		count++</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">false</span>, <span class="number">-1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//在链表末尾添加值</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(doublelinklist *DoubleLinkList)</span> <span class="title">appendList</span><span class="params">(e <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	p := doublelinklist.first</span><br><span class="line">	temp := &amp;Node&#123;e, <span class="literal">nil</span>, <span class="literal">nil</span>&#125;</span><br><span class="line">	temp.Prior = p.Prior</span><br><span class="line">	temp.Next = p</span><br><span class="line">	temp.Next.Prior = temp</span><br><span class="line">	temp.Prior.Next = temp</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//向链表某个位置添加值，插入语句的不同以及place的不同决定前插还是后插</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(doublelinklist *DoubleLinkList)</span> <span class="title">insertList</span><span class="params">(place <span class="keyword">int</span>, e <span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">	p := doublelinklist.first.Next</span><br><span class="line">	count := <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> count &lt; place<span class="number">-1</span> &#123;</span><br><span class="line">		p = p.Next</span><br><span class="line">		count++</span><br><span class="line">	&#125;</span><br><span class="line">	temp := <span class="built_in">new</span>(Node)</span><br><span class="line">	temp.Val = e</span><br><span class="line">	<span class="comment">//此刻count=4，在4后面插入</span></span><br><span class="line">	<span class="comment">// temp.Prior = p</span></span><br><span class="line">	<span class="comment">// temp.Next = p.Next</span></span><br><span class="line">	<span class="comment">// p.Next.Prior = temp</span></span><br><span class="line">	<span class="comment">// p.Next = temp</span></span><br><span class="line">	<span class="comment">//此刻count=4，在4前面插入</span></span><br><span class="line">	temp.Next = p</span><br><span class="line">	temp.Prior = p.Prior</span><br><span class="line">	p.Prior.Next = temp</span><br><span class="line">	p.Prior = temp</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//删除某个位置的元素</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(doublelinklist *DoubleLinkList)</span> <span class="title">deleteList</span><span class="params">(place <span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">	p := doublelinklist.first.Next</span><br><span class="line">	count := <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> count &lt; place<span class="number">-1</span> &#123;</span><br><span class="line">		p = p.Next</span><br><span class="line">		count++</span><br><span class="line">	&#125;</span><br><span class="line">	p.Next.Prior = p.Prior</span><br><span class="line">	p.Prior.Next = p.Next</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//输出链表</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(doublelinklist *DoubleLinkList)</span> <span class="title">showItem</span><span class="params">()</span></span> &#123;</span><br><span class="line">	p := doublelinklist.first.Next</span><br><span class="line">	<span class="comment">// dataArray := []Node&#123;&#125;</span></span><br><span class="line">	dataArray := []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">	<span class="keyword">for</span> p != doublelinklist.first &#123;</span><br><span class="line">		<span class="comment">// dataArray = append(dataArray, Node&#123;Prior: p.Prior, Val: p.Val, Next: p.Next&#125;)</span></span><br><span class="line">		dataArray = <span class="built_in">append</span>(dataArray, p.Val)</span><br><span class="line">		p = p.Next</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(dataArray)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	dataArray := []<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>&#125;</span><br><span class="line">	mylist := DoubleLinkList&#123;first: <span class="literal">nil</span>&#125;</span><br><span class="line">	mylist.newTailList(dataArray)</span><br><span class="line">	mylist.showItem()</span><br><span class="line">	<span class="comment">// count := mylist.getLength()</span></span><br><span class="line">	<span class="comment">// fmt.Println(count)</span></span><br><span class="line">	mylist.appendList(<span class="number">9</span>)</span><br><span class="line">	mylist.appendList(<span class="number">10</span>)</span><br><span class="line">	mylist.showItem()</span><br><span class="line">	mylist.insertList(<span class="number">4</span>, <span class="number">20</span>)</span><br><span class="line">	mylist.showItem()</span><br><span class="line">	mylist.deleteList(<span class="number">4</span>)</span><br><span class="line">	mylist.showItem()</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-        
-      
     </div>
 
     
     
     
+        
+      
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/10/23/linux%E5%91%BD%E4%BB%A4%E7%BB%83%E4%B9%A0/" rel="next" title="linux命令练习">
+                  <i class="fa fa-chevron-left"></i> linux命令练习
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
       </footer>
+    
   </article>
   
   
   
 
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="cn">
-    <link itemprop="mainEntityOfPage" href="http://chdliutao.top/2019/10/23/linux%E5%91%BD%E4%BB%A4%E7%BB%83%E4%B9%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="刘涛">
-      <meta itemprop="description" content="成长记录博客">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CHD-刘涛">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2019/10/23/linux%E5%91%BD%E4%BB%A4%E7%BB%83%E4%B9%A0/" class="post-title-link" itemprop="url">linux命令练习</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-10-23 13:42:53" itemprop="dateCreated datePublished" datetime="2019-10-23T13:42:53+08:00">2019-10-23</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="部分linux命令记录"><a href="#部分linux命令记录" class="headerlink" title="部分linux命令记录"></a>部分linux命令记录</h1><h3 id="lab-03-01："><a href="#lab-03-01：" class="headerlink" title="lab-03-01："></a>lab-03-01：</h3><ul>
-<li><p>Find the mintzquotes.txt file somewhere inside the maze directory</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find maze/ -name  mintzquotes.txt</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>From the mintzquotes.txt file, extract all lines containing the string “math” in the first 30 lines of the file, and append them to your output file.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat maze/seven/moblin/melior/mintzquotes.txt | grep &quot;math&quot; | head -n 30 &gt;&gt; output.txt</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Take the last 10 lines of mintzquotes.txt, sort them in alphabetical order, number the resulting lines, then append the result to your output file.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat maze/seven/moblin/melior/mintzquotes.txt | tail -n 10 | sort | nl &gt;&gt; output.txt</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Output a list of directories in the top level of maze/one in reverse order, and append this list to your output file.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls maze/one/ | sort -r &gt;&gt; output.txt</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Find the total number of subdirectories (recursively, so including directories inside of directories) inside of maze/two and append this to your output file.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find maze/two/ -type d | wc -l &gt;&gt; output.txt</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Find the total number of files (recursively) inside of maze with names end in  the suffix ‘ix’, and append this to your output file.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">法1：find maze/ -name &quot;*ix&quot;  -type f  | wc -l &gt;&gt; output.txt</span><br><span class="line">法2：ls -lR maze/ | grep &quot;*ix&quot; | wc -l  &gt;&gt; output.txt</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Find the total number of subdirectories that are named “garamond” inside of maze and append this to your output file.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">法1：find maze/ -name &quot;garamond&quot;  -type d  | wc -l &gt;&gt; output.txt</span><br><span class="line">法2：ls -lR maze/ | grep &quot;^d&quot; | grep &quot;garamond&quot;  | wc -l  &gt;&gt; output.txt</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Find the total number of files (recursively) inside of maze with name  containing at least a single character ‘a’ that occur at depth at most 2. Append this to your output file.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find maze/ -maxdepth 2 -name &quot;*a*&quot; -type f | wc -l &gt;&gt; output.txt</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Recursively delete every directory whose name ends in the  suffix ‘ux’. (Hint: xargs.)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find maze/ -name &quot;*ux&quot; -type d |xargs rm -rf</span><br></pre></td></tr></table></figure>
-
-
-</li>
-</ul>
-<h3 id="lab-03-02"><a href="#lab-03-02" class="headerlink" title="lab-03-02:"></a>lab-03-02:</h3><ul>
-<li><p>创建regx文件夹，将lab03-02.zip解压缩到regx中，根据regx中的instruction完成实验 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip linux-lab03/lab03-02.zip -d regx/</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Find lines in ideas.txt that refer to the C language.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat texts/ideas.txt | grep -E  &quot;[[:space:]]C[[:space:]]|[[:space:]]C$|[[:space:]]C\.&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Find act/scene numbers in hamlet.txt .</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat hamlet.txt | grep -E  &quot;ACT..|Scene*&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Find all ^^ or ^_^  type smileys in chat.txt .</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat texts/chat.txt | grep -E &quot;\^\^| \^_\^&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Match letter grades in 143.txt such as A, B+, or D- .</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat texts/143.txt | grep &quot;[A-Z][+-]$&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Match phone #s in contact.html, e.g. (206) 685-2181.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat texts/contact.html | grep &quot;([0-9]\&#123;3\&#125;) [0-9]\&#123;3\&#125;-[0-9]\&#123;4\&#125;&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Replace “The” with “The Super Awesome”</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -r &quot;s/The/The Super Awesome/g&quot; texts/movies.txt</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Now do it only when The occurs at the beginning of the line.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -r &quot;s/^The/The Super Awesome/g&quot; texts/movies.txt</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Move the year from the end of the line to the beginning of the line.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -r &quot;s/(.*?) (\([0-9]+\)$)/\2 \1/g&quot; texts/movies.txt</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Do this and also sort the movies by year</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -r &quot;s/(.*?) (\([0-9]+\)$)/\2 \1/g&quot; texts/movies.txt | sort</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Now do the two items above and then put the year back at the end of the line.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed -r &quot;s/(.*?) (\([0-9]+\)$)/\2 \1/g&quot; texts/movies.txt | sort | </span><br><span class="line">sed -r &quot;s/(^\([0-9]+\))(.*?)/\2 \1/g&quot;</span><br></pre></td></tr></table></figure>
-
-
-</li>
-</ul>
-
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="cn">
-    <link itemprop="mainEntityOfPage" href="http://chdliutao.top/2019/10/23/%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%E5%BA%94%E7%94%A8%E6%96%87%E6%A1%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="刘涛">
-      <meta itemprop="description" content="成长记录博客">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CHD-刘涛">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2019/10/23/%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%E5%BA%94%E7%94%A8%E6%96%87%E6%A1%A3/" class="post-title-link" itemprop="url">每日打卡应用文档</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-10-23 13:42:16" itemprop="dateCreated datePublished" datetime="2019-10-23T13:42:16+08:00">2019-10-23</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="每日打卡小程序文档"><a href="#每日打卡小程序文档" class="headerlink" title="每日打卡小程序文档"></a>每日打卡小程序文档</h1><h4 id="需求："><a href="#需求：" class="headerlink" title="需求："></a>需求：</h4><p>每日早起打卡应用。</p>
-<h4 id="数据表结构设计："><a href="#数据表结构设计：" class="headerlink" title="数据表结构设计："></a>数据表结构设计：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1、表名：fa_clock_activity_list</span><br><span class="line">描述：活动记录表（每个活动为一个打卡周期）</span><br><span class="line">字段：</span><br><span class="line">`ID`	int		活动ID</span><br><span class="line">`HDMC`	varchar	活动名称</span><br><span class="line">`KSSJ`	int		活动开始时间</span><br><span class="line">`JSSJ`	int		活动结束时间</span><br><span class="line">`DKKSSJ`varchar	打卡开始时间</span><br><span class="line">`DKJSSJ`varchar	打卡结束时间</span><br><span class="line">`extro`	text	备用</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">2、表名：fa_clock_apply_list</span><br><span class="line">表述：打卡活动报名表</span><br><span class="line">字段：</span><br><span class="line">`ID`	int		自增ID</span><br><span class="line">`XH`	varchar	学号</span><br><span class="line">`HDID`	int		活动ID 外键</span><br><span class="line">`BMSJ`	int		报名时间</span><br><span class="line">`LJTS`	int		活动内累计打卡天数</span><br><span class="line">`LXTS`	int		活动内连续打卡天数</span><br><span class="line">`maxLXTS`int	最大连续打卡天数</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">3、表名：fa_clock_user_list</span><br><span class="line">描述：打卡活动打卡记录表</span><br><span class="line">字段：</span><br><span class="line">`ID`	int		自增ID</span><br><span class="line">`XH`	varchar	学号</span><br><span class="line">`HDID`	int		活动ID</span><br><span class="line">`DKSJ`	int		打卡时间</span><br></pre></td></tr></table></figure>
-
-<h4 id="接口设计："><a href="#接口设计：" class="headerlink" title="接口设计："></a>接口设计：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line">1、miniapp/clock/index</span><br><span class="line">初始化接口</span><br><span class="line">@param int key[&quot;XH&quot;] &amp;&amp; $key[&quot;open_id&quot;]</span><br><span class="line">@return array</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//活动未开始</span><br><span class="line">[</span><br><span class="line">	&quot;status&quot;	=&gt;	200,</span><br><span class="line">	&quot;msg&quot;		=&gt;	&quot;success&quot;,</span><br><span class="line">	&quot;data&quot;		=&gt;	[</span><br><span class="line">		&quot;clock_status&quot;	=&gt;	[</span><br><span class="line">			&quot;is_activity&quot;	=&gt;	false, //当前没有活动</span><br><span class="line">			&quot;is_wait&quot;		=&gt;	true,//有活动但未开始，为false则表示无活动</span><br><span class="line">			&quot;start_time&quot;	=&gt;	&quot;&quot;,	//活动开始时间</span><br><span class="line">		],</span><br><span class="line">		&quot;personal_info&quot;		=&gt;	[],//个人信息</span><br><span class="line">		&quot;rank_info&quot;			=&gt;	[],//排行信息</span><br><span class="line">		&quot;rand_str&quot;			=&gt;	&quot;&quot;,//随机字符串</span><br><span class="line">	]</span><br><span class="line">]</span><br><span class="line">//活动已开始，且用户未报名</span><br><span class="line">[</span><br><span class="line">	&quot;status&quot;	=&gt;	200,</span><br><span class="line">	&quot;msg&quot;		=&gt;	&quot;success&quot;,</span><br><span class="line">	&quot;data&quot;		=&gt;	[</span><br><span class="line">		&quot;clock_status&quot;	=&gt;	[</span><br><span class="line">			&quot;is_activity&quot;	=&gt;	true, //当前有活动</span><br><span class="line">			&quot;is_apply&quot;		=&gt;	false	//当前用户</span><br><span class="line">			&quot;activity_id&quot;	=&gt;	&quot;&quot;,//活动ID</span><br><span class="line">		],</span><br><span class="line">		&quot;personal_info&quot;		=&gt;	[],//个人信息</span><br><span class="line">		&quot;rank_info&quot;			=&gt;	[],//排行信息</span><br><span class="line">		&quot;rand_str&quot;			=&gt;	&quot;&quot;,//随机字符串</span><br><span class="line">	]</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">//活动已开始，且用户报名，尚未打卡</span><br><span class="line">[</span><br><span class="line">	&quot;status&quot;	=&gt;	200,</span><br><span class="line">	&quot;msg&quot;		=&gt;	&quot;success&quot;,</span><br><span class="line">	&quot;data&quot;		=&gt;	[</span><br><span class="line">		&quot;clock_status&quot;	=&gt;	[</span><br><span class="line">			&quot;is_activity&quot;	=&gt;	true, //当前有活动</span><br><span class="line">			&quot;is_apply&quot;		=&gt;	true	//当前用户</span><br><span class="line">			&quot;is_dk&quot;			=&gt;	false,</span><br><span class="line">			&quot;dk_start_time&quot;	=&gt;	&quot;&quot;,//打卡开始时间</span><br><span class="line">			&quot;dk_end_time&quot;	=&gt;	&quot;&quot;,//打卡结束时间</span><br><span class="line">			&quot;activity_id&quot;	=&gt;	&quot;&quot;,//活动ID</span><br><span class="line">			&quot;can_dk&quot;		=&gt;	true,//是否可以打卡</span><br><span class="line">		],</span><br><span class="line">		&quot;personal_info&quot;		=&gt;	[],//个人信息</span><br><span class="line">		&quot;rank_info&quot;			=&gt;	[],//排行信息</span><br><span class="line">		&quot;rand_str&quot;			=&gt;	&quot;&quot;,//随机字符串</span><br><span class="line">	]</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">//活动已开始，且用户报名，已经打卡</span><br><span class="line">[</span><br><span class="line">	&quot;status&quot;	=&gt;	200,</span><br><span class="line">	&quot;msg&quot;		=&gt;	&quot;success&quot;,</span><br><span class="line">	&quot;data&quot;		=&gt;	[</span><br><span class="line">		&quot;clock_status&quot;	=&gt;	[</span><br><span class="line">			&quot;is_activity&quot;	=&gt;	true, //当前有活动</span><br><span class="line">			&quot;is_apply&quot;		=&gt;	true	//当前用户</span><br><span class="line">			&quot;is_dk&quot;			=&gt;	true,</span><br><span class="line">			&quot;dk_next_time&quot;	=&gt;	&quot;&quot;,//距离下次打卡的时间</span><br><span class="line">		],</span><br><span class="line">		&quot;personal_info&quot;		=&gt;	[],//个人信息</span><br><span class="line">		&quot;rank_info&quot;			=&gt;	[],//排行信息</span><br><span class="line">		&quot;rand_str&quot;			=&gt;	&quot;&quot;,//随机字符串</span><br><span class="line">	]</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">//个人信息+排行信息</span><br><span class="line">[</span><br><span class="line">	&quot;status&quot;	=&gt;	200,</span><br><span class="line">	&quot;msg&quot;		=&gt;	&quot;success&quot;,</span><br><span class="line">	&quot;data&quot;		=&gt;	[</span><br><span class="line">		&quot;rand_str&quot;			=&gt;	&quot;&quot;,//随机字符串</span><br><span class="line">		&quot;clock_status&quot;	=&gt;	[],</span><br><span class="line">		&quot;personal_info&quot;	=&gt;	[</span><br><span class="line">			&quot;running_days&quot;			=&gt;	&quot;&quot;,//连续打卡天数</span><br><span class="line">			&quot;total_activity_days&quot;	=&gt;	&quot;&quot;,//活动期间内累计打卡天数</span><br><span class="line">			&quot;total_days&quot;			=&gt;	&quot;&quot;,//历史累计打卡天数</span><br><span class="line">		],</span><br><span class="line">		&quot;rank_info&quot;		=&gt;	[</span><br><span class="line">			&quot;runnging_list&quot;	=&gt;	[</span><br><span class="line">				[&quot;XM&quot;=&gt;&quot;&quot;,&quot;YXMC&quot;=&gt;&quot;&quot;,&quot;clock_time&quot;=&gt;&quot;&quot;],</span><br><span class="line">				[&quot;XM&quot;=&gt;&quot;&quot;,&quot;YXMC&quot;=&gt;&quot;&quot;,&quot;clock_time&quot;=&gt;&quot;&quot;],</span><br><span class="line">				[&quot;XM&quot;=&gt;&quot;&quot;,&quot;YXMC&quot;=&gt;&quot;&quot;,&quot;clock_time&quot;=&gt;&quot;&quot;],</span><br><span class="line">				...</span><br><span class="line">			],</span><br><span class="line">			&quot;total_activity_list&quot;	=&gt;	[</span><br><span class="line">				[&quot;XM&quot;=&gt;&quot;&quot;,&quot;YXMC&quot;=&gt;&quot;&quot;,&quot;nums&quot;=&gt;&quot;&quot;],</span><br><span class="line">				[&quot;XM&quot;=&gt;&quot;&quot;,&quot;YXMC&quot;=&gt;&quot;&quot;,&quot;nums&quot;=&gt;&quot;&quot;],</span><br><span class="line">				[&quot;XM&quot;=&gt;&quot;&quot;,&quot;YXMC&quot;=&gt;&quot;&quot;,&quot;nums&quot;=&gt;&quot;&quot;],</span><br><span class="line">				...</span><br><span class="line">			],</span><br><span class="line">			&quot;total_list&quot;			=&gt;	[</span><br><span class="line">				[&quot;XM&quot;=&gt;&quot;&quot;,&quot;YXMC&quot;=&gt;&quot;&quot;,&quot;nums&quot;=&gt;&quot;&quot;],</span><br><span class="line">				[&quot;XM&quot;=&gt;&quot;&quot;,&quot;YXMC&quot;=&gt;&quot;&quot;,&quot;nums&quot;=&gt;&quot;&quot;],</span><br><span class="line">				[&quot;XM&quot;=&gt;&quot;&quot;,&quot;YXMC&quot;=&gt;&quot;&quot;,&quot;nums&quot;=&gt;&quot;&quot;],</span><br><span class="line">				...</span><br><span class="line">			],</span><br><span class="line">	</span><br><span class="line">		],</span><br><span class="line">	]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">2、miniapp/clock/apply</span><br><span class="line">报名接口</span><br><span class="line">@param int key[&quot;XH&quot;] &amp;&amp; $key[&quot;open_id&quot;] &amp;&amp; $key[&quot;activity_id&quot;]</span><br><span class="line">@return array</span><br><span class="line"></span><br><span class="line">//报名成功</span><br><span class="line">[</span><br><span class="line">	&quot;status&quot;	=&gt;	200,</span><br><span class="line">	&quot;msg&quot;		=&gt;	&quot;报名成功&quot;,</span><br><span class="line">	&quot;data&quot;		=&gt;	[</span><br><span class="line">		&quot;clock_time&quot;	=&gt;	&quot;&quot;,//每天打卡时间</span><br><span class="line">	]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">3、miniapp/clock/clock</span><br><span class="line">打卡接口</span><br><span class="line">@param int key[&quot;XH&quot;] &amp;&amp; $key[&quot;open_id&quot;] &amp;&amp; $key[&quot;activity_id&quot;]</span><br><span class="line">@return array</span><br><span class="line"></span><br><span class="line">//打卡成功</span><br><span class="line">[</span><br><span class="line">	&quot;status&quot;	=&gt;	200,</span><br><span class="line">	&quot;msg&quot;		=&gt;	&quot;打卡成功&quot;,</span><br><span class="line">	&quot;data&quot;		=&gt;	[</span><br><span class="line">		&quot;clock_time&quot;	=&gt;	&quot;&quot;,//下次打卡时间</span><br><span class="line">	]</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">//打卡失败</span><br><span class="line">[</span><br><span class="line">	&quot;status&quot;	=&gt;	200,</span><br><span class="line">	&quot;msg&quot;		=&gt;	&quot;打卡失败，未到打卡时间&quot;,</span><br><span class="line">	&quot;data&quot;		=&gt;	[</span><br><span class="line">		&quot;clock_time&quot;	=&gt;	&quot;&quot;,//下次打卡时间</span><br><span class="line">	]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-
-
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="cn">
-    <link itemprop="mainEntityOfPage" href="http://chdliutao.top/2019/10/18/thinkPHP5%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA%E7%9C%81%E7%95%A5public%E4%BB%A5%E5%8F%8Aindex-php/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="刘涛">
-      <meta itemprop="description" content="成长记录博客">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CHD-刘涛">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2019/10/18/thinkPHP5%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA%E7%9C%81%E7%95%A5public%E4%BB%A5%E5%8F%8Aindex-php/" class="post-title-link" itemprop="url">thinkPHP5项目搭建省略public以及index.php</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-10-18 13:19:44 / Modified: 13:20:38" itemprop="dateCreated datePublished" datetime="2019-10-18T13:19:44+08:00">2019-10-18</time>
-            </span>
-          
-            
-
-            
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>thinkPHP5项目搭建省略public以及index.php</p>
-<h3 id="一、环境说明："><a href="#一、环境说明：" class="headerlink" title="一、环境说明："></a>一、环境说明：</h3><ul>
-<li><p>LNMP环境</p>
-</li>
-<li><p>thinkPHP5项目</p>
-</li>
-</ul>
-<h3 id="二、适用说明："><a href="#二、适用说明：" class="headerlink" title="二、适用说明："></a>二、适用说明：</h3><ul>
-<li>通过lnmp一键配置服务器的环境</li>
-<li>thinkPHP5项目</li>
-<li>需要省略URL中的public以及index.php</li>
-</ul>
-<h3 id="三、步骤说明："><a href="#三、步骤说明：" class="headerlink" title="三、步骤说明："></a>三、步骤说明：</h3><ol>
-<li><p>注：修改配置文件之前请先做好备份。</p>
-</li>
-<li><p>将项目通过FTP或GIT上传至服务器，修改域名配置文件。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/nginx/conf/vhost/</span><br><span class="line">vim 域名.conf</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-<p>重点为：①将root目录定向至public目录下②引入重写规则rewrite/thinkphp.conf 配置内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">server</span><br><span class="line">    &#123;</span><br><span class="line">        listen 80;</span><br><span class="line">        #listen [::]:80;</span><br><span class="line">        server_name ********;</span><br><span class="line">        index index.html index.htm index.php default.html default.htm default.php;</span><br><span class="line">        root  /home/wwwroot/********/public/; </span><br><span class="line"></span><br><span class="line">        include rewrite/thinkphp.conf;</span><br><span class="line">        #error_page   404   /404.html;</span><br><span class="line">        include enable-php-pathinfo.conf;</span><br><span class="line"></span><br><span class="line">        # Deny access to PHP files in specific directory</span><br><span class="line">        #location ~ /(wp-content|uploads|wp-includes|images)/.*\.php$ &#123; deny all; &#125;</span><br><span class="line"></span><br><span class="line">        #include enable-php.conf;</span><br><span class="line"></span><br><span class="line">        location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$</span><br><span class="line">        &#123;</span><br><span class="line">            expires      30d;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location ~ .*\.(js|css)?$</span><br><span class="line">        &#123;</span><br><span class="line">            expires      12h;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location ~ /.well-known &#123;</span><br><span class="line">            allow all;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location ~ /\.</span><br><span class="line">        &#123;</span><br><span class="line">            deny all;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        access_log off;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li><p>修改fastcgi.conf文件，将最后一行注释</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/nginx/conf</span><br><span class="line">vim fastcgi.conf</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;</span><br><span class="line">fastcgi_param  QUERY_STRING       $query_string;</span><br><span class="line">fastcgi_param  REQUEST_METHOD     $request_method;</span><br><span class="line">fastcgi_param  CONTENT_TYPE       $content_type;</span><br><span class="line">fastcgi_param  CONTENT_LENGTH     $content_length;</span><br><span class="line"></span><br><span class="line">fastcgi_param  SCRIPT_NAME        $fastcgi_script_name;</span><br><span class="line">fastcgi_param  REQUEST_URI        $request_uri;</span><br><span class="line">fastcgi_param  DOCUMENT_URI       $document_uri;</span><br><span class="line">fastcgi_param  DOCUMENT_ROOT      $document_root;</span><br><span class="line">fastcgi_param  SERVER_PROTOCOL    $server_protocol;</span><br><span class="line">fastcgi_param  REQUEST_SCHEME     $scheme;</span><br><span class="line">fastcgi_param  HTTPS              $https if_not_empty;</span><br><span class="line"></span><br><span class="line">fastcgi_param  GATEWAY_INTERFACE  CGI/1.1;</span><br><span class="line">fastcgi_param  SERVER_SOFTWARE    nginx/$nginx_version;</span><br><span class="line"></span><br><span class="line">fastcgi_param  REMOTE_ADDR        $remote_addr;</span><br><span class="line">fastcgi_param  REMOTE_PORT        $remote_port;</span><br><span class="line">fastcgi_param  SERVER_ADDR        $server_addr;</span><br><span class="line">fastcgi_param  SERVER_PORT        $server_port;</span><br><span class="line">fastcgi_param  SERVER_NAME        $server_name;</span><br><span class="line"></span><br><span class="line"># PHP only, required if PHP was built with --enable-force-cgi-redirect</span><br><span class="line">fastcgi_param  REDIRECT_STATUS    200;</span><br><span class="line">#fastcgi_param PHP_ADMIN_VALUE &quot;open_basedir=$document_root/:/tmp/:/proc/&quot;;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>之后重启lnmp</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lnmp restart</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>之后记得清空thinkPHP5项目的缓存。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd 项目目录</span><br><span class="line">cd runtime</span><br><span class="line">rm -rf cache/</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>之后便可以省略掉URL中的public/index.php进行访问项目。</p>
-</li>
-</ol>
-
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="cn">
-    <link itemprop="mainEntityOfPage" href="http://chdliutao.top/2019/10/18/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="刘涛">
-      <meta itemprop="description" content="成长记录博客">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CHD-刘涛">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2019/10/18/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-10-18 11:50:22" itemprop="dateCreated datePublished" datetime="2019-10-18T11:50:22+08:00">2019-10-18</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-    
   </div>
-
-  
-
 
 
           </div>
@@ -696,6 +311,11 @@
 
   <aside class="sidebar">
     <div class="sidebar-inner">
+        
+        
+        
+        
+      
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
@@ -708,6 +328,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#go基础数据结构实现–链表"><span class="nav-number">1.</span> <span class="nav-text">go基础数据结构实现–链表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-头结点-单链表实现"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.(头结点)单链表实现:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-头结点-循环双链表实现"><span class="nav-number">1.0.2.</span> <span class="nav-text">2.(头结点)循环双链表实现:</span></a></li></ol></li></ol></li></ol></div>
+        
       </div>
       <!--/noindex-->
 
