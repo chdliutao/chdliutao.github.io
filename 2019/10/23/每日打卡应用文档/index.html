@@ -55,30 +55,31 @@
   };
 </script>
 
-  <meta name="description" content="成长记录博客">
+  <meta name="description" content="每日打卡小程序文档需求：每日早起打卡应用。 数据表结构设计：123456789101、表名：fa_clock_activity_list描述：活动记录表（每个活动为一个打卡周期）字段：`ID`	int		活动ID`HDMC`	varchar	活动名称`KSSJ`	int		活动开始时间`JSSJ`	int		活动结束时间`DKKSSJ`varchar	打卡开始时间`DKJSSJ`varchar	打">
 <meta name="keywords" content="IT Blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="CHD-刘涛">
-<meta property="og:url" content="http:&#x2F;&#x2F;chdliutao.top&#x2F;index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="每日打卡应用文档">
+<meta property="og:url" content="http:&#x2F;&#x2F;chdliutao.top&#x2F;2019&#x2F;10&#x2F;23&#x2F;%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%E5%BA%94%E7%94%A8%E6%96%87%E6%A1%A3&#x2F;index.html">
 <meta property="og:site_name" content="CHD-刘涛">
-<meta property="og:description" content="成长记录博客">
+<meta property="og:description" content="每日打卡小程序文档需求：每日早起打卡应用。 数据表结构设计：123456789101、表名：fa_clock_activity_list描述：活动记录表（每个活动为一个打卡周期）字段：`ID`	int		活动ID`HDMC`	varchar	活动名称`KSSJ`	int		活动开始时间`JSSJ`	int		活动结束时间`DKKSSJ`varchar	打卡开始时间`DKJSSJ`varchar	打">
 <meta property="og:locale" content="cn">
+<meta property="og:updated_time" content="2019-10-23T05:42:16.121Z">
 <meta name="twitter:card" content="summary">
-  <link rel="canonical" href="http://chdliutao.top/">
+  <link rel="canonical" href="http://chdliutao.top/2019/10/23/%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%E5%BA%94%E7%94%A8%E6%96%87%E6%A1%A3/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: true,
-    isPost: false,
+    isHome: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>CHD-刘涛</title>
+  <title>每日打卡应用文档 | CHD-刘涛</title>
   
 
 
@@ -193,144 +194,10 @@
             
 
   <div class="posts-expand">
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="cn">
-    <link itemprop="mainEntityOfPage" href="http://chdliutao.top/2019/10/23/linux%E5%91%BD%E4%BB%A4%E7%BB%83%E4%B9%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="刘涛">
-      <meta itemprop="description" content="成长记录博客">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CHD-刘涛">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2019/10/23/linux%E5%91%BD%E4%BB%A4%E7%BB%83%E4%B9%A0/" class="post-title-link" itemprop="url">linux命令练习</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-10-23 13:42:53" itemprop="dateCreated datePublished" datetime="2019-10-23T13:42:53+08:00">2019-10-23</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
       
-          <h1 id="部分linux命令记录"><a href="#部分linux命令记录" class="headerlink" title="部分linux命令记录"></a>部分linux命令记录</h1><h3 id="lab-03-01："><a href="#lab-03-01：" class="headerlink" title="lab-03-01："></a>lab-03-01：</h3><ul>
-<li><p>Find the mintzquotes.txt file somewhere inside the maze directory</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find maze/ -name  mintzquotes.txt</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>From the mintzquotes.txt file, extract all lines containing the string “math” in the first 30 lines of the file, and append them to your output file.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat maze/seven/moblin/melior/mintzquotes.txt | grep &quot;math&quot; | head -n 30 &gt;&gt; output.txt</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Take the last 10 lines of mintzquotes.txt, sort them in alphabetical order, number the resulting lines, then append the result to your output file.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat maze/seven/moblin/melior/mintzquotes.txt | tail -n 10 | sort | nl &gt;&gt; output.txt</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Output a list of directories in the top level of maze/one in reverse order, and append this list to your output file.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls maze/one/ | sort -r &gt;&gt; output.txt</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Find the total number of subdirectories (recursively, so including directories inside of directories) inside of maze/two and append this to your output file.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find maze/two/ -type d | wc -l &gt;&gt; output.txt</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Find the total number of files (recursively) inside of maze with names end in  the suffix ‘ix’, and append this to your output file.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">法1：find maze/ -name &quot;*ix&quot;  -type f  | wc -l &gt;&gt; output.txt</span><br><span class="line">法2：ls -lR maze/ | grep &quot;*ix&quot; | wc -l  &gt;&gt; output.txt</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Find the total number of subdirectories that are named “garamond” inside of maze and append this to your output file.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">法1：find maze/ -name &quot;garamond&quot;  -type d  | wc -l &gt;&gt; output.txt</span><br><span class="line">法2：ls -lR maze/ | grep &quot;^d&quot; | grep &quot;garamond&quot;  | wc -l  &gt;&gt; output.txt</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Find the total number of files (recursively) inside of maze with name  containing at least a single character ‘a’ that occur at depth at most 2. Append this to your output file.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find maze/ -maxdepth 2 -name &quot;*a*&quot; -type f | wc -l &gt;&gt; output.txt</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Recursively delete every directory whose name ends in the  suffix ‘ux’. (Hint: xargs.)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find maze/ -name &quot;*ux&quot; -type d |xargs rm -rf</span><br></pre></td></tr></table></figure>
-
-
-</li>
-</ul>
-<h3 id="lab-03-02"><a href="#lab-03-02" class="headerlink" title="lab-03-02:"></a>lab-03-02:</h3><ul>
-<li><p>创建regx文件夹，将lab03-02.zip解压缩到regx中，根据regx中的instruction完成实验 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">unzip linux-lab03/lab03-02.zip -d regx/</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Find lines in ideas.txt that refer to the C language.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat texts/ideas.txt | grep -E  &quot;[[:space:]]C[[:space:]]|[[:space:]]C$|[[:space:]]C\.&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Find act/scene numbers in hamlet.txt .</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat hamlet.txt | grep -E  &quot;ACT..|Scene*&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Find all ^^ or ^_^  type smileys in chat.txt .</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat texts/chat.txt | grep -E &quot;\^\^| \^_\^&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Match letter grades in 143.txt such as A, B+, or D- .</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat texts/143.txt | grep &quot;[A-Z][+-]$&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Match phone #s in contact.html, e.g. (206) 685-2181.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat texts/contact.html | grep &quot;([0-9]\&#123;3\&#125;) [0-9]\&#123;3\&#125;-[0-9]\&#123;4\&#125;&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Replace “The” with “The Super Awesome”</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -r &quot;s/The/The Super Awesome/g&quot; texts/movies.txt</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Now do it only when The occurs at the beginning of the line.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -r &quot;s/^The/The Super Awesome/g&quot; texts/movies.txt</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Move the year from the end of the line to the beginning of the line.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -r &quot;s/(.*?) (\([0-9]+\)$)/\2 \1/g&quot; texts/movies.txt</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Do this and also sort the movies by year</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -r &quot;s/(.*?) (\([0-9]+\)$)/\2 \1/g&quot; texts/movies.txt | sort</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Now do the two items above and then put the year back at the end of the line.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sed -r &quot;s/(.*?) (\([0-9]+\)$)/\2 \1/g&quot; texts/movies.txt | sort | </span><br><span class="line">sed -r &quot;s/(^\([0-9]+\))(.*?)/\2 \1/g&quot;</span><br></pre></td></tr></table></figure>
-
-
-</li>
-</ul>
-
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
   
   
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="cn">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="cn">
     <link itemprop="mainEntityOfPage" href="http://chdliutao.top/2019/10/23/%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%E5%BA%94%E7%94%A8%E6%96%87%E6%A1%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -345,8 +212,9 @@
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
+            每日打卡应用文档
             
-            <a href="/2019/10/23/%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%E5%BA%94%E7%94%A8%E6%96%87%E6%A1%A3/" class="post-title-link" itemprop="url">每日打卡应用文档</a>
+
           
         </h1>
 
@@ -376,7 +244,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="每日打卡小程序文档"><a href="#每日打卡小程序文档" class="headerlink" title="每日打卡小程序文档"></a>每日打卡小程序文档</h1><h4 id="需求："><a href="#需求：" class="headerlink" title="需求："></a>需求：</h4><p>每日早起打卡应用。</p>
+        <h1 id="每日打卡小程序文档"><a href="#每日打卡小程序文档" class="headerlink" title="每日打卡小程序文档"></a>每日打卡小程序文档</h1><h4 id="需求："><a href="#需求：" class="headerlink" title="需求："></a>需求：</h4><p>每日早起打卡应用。</p>
 <h4 id="数据表结构设计："><a href="#数据表结构设计：" class="headerlink" title="数据表结构设计："></a>数据表结构设计：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1、表名：fa_clock_activity_list</span><br><span class="line">描述：活动记录表（每个活动为一个打卡周期）</span><br><span class="line">字段：</span><br><span class="line">`ID`	int		活动ID</span><br><span class="line">`HDMC`	varchar	活动名称</span><br><span class="line">`KSSJ`	int		活动开始时间</span><br><span class="line">`JSSJ`	int		活动结束时间</span><br><span class="line">`DKKSSJ`varchar	打卡开始时间</span><br><span class="line">`DKJSSJ`varchar	打卡结束时间</span><br><span class="line">`extro`	text	备用</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">2、表名：fa_clock_apply_list</span><br><span class="line">表述：打卡活动报名表</span><br><span class="line">字段：</span><br><span class="line">`ID`	int		自增ID</span><br><span class="line">`XH`	varchar	学号</span><br><span class="line">`HDID`	int		活动ID 外键</span><br><span class="line">`BMSJ`	int		报名时间</span><br><span class="line">`LJTS`	int		活动内累计打卡天数</span><br><span class="line">`LXTS`	int		活动内连续打卡天数</span><br><span class="line">`maxLXTS`int	最大连续打卡天数</span><br></pre></td></tr></table></figure>
@@ -391,215 +259,46 @@
 
 
 
-        
-      
     </div>
 
     
     
     
+        
+      
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/10/18/thinkPHP5%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA%E7%9C%81%E7%95%A5public%E4%BB%A5%E5%8F%8Aindex-php/" rel="next" title="thinkPHP5项目搭建省略public以及index.php">
+                  <i class="fa fa-chevron-left"></i> thinkPHP5项目搭建省略public以及index.php
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/10/23/linux%E5%91%BD%E4%BB%A4%E7%BB%83%E4%B9%A0/" rel="prev" title="linux命令练习">
+                  linux命令练习 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
       </footer>
+    
   </article>
   
   
   
 
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="cn">
-    <link itemprop="mainEntityOfPage" href="http://chdliutao.top/2019/10/18/thinkPHP5%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA%E7%9C%81%E7%95%A5public%E4%BB%A5%E5%8F%8Aindex-php/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="刘涛">
-      <meta itemprop="description" content="成长记录博客">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CHD-刘涛">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2019/10/18/thinkPHP5%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA%E7%9C%81%E7%95%A5public%E4%BB%A5%E5%8F%8Aindex-php/" class="post-title-link" itemprop="url">thinkPHP5项目搭建省略public以及index.php</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-10-18 13:19:44 / Modified: 13:20:38" itemprop="dateCreated datePublished" datetime="2019-10-18T13:19:44+08:00">2019-10-18</time>
-            </span>
-          
-            
-
-            
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>thinkPHP5项目搭建省略public以及index.php</p>
-<h3 id="一、环境说明："><a href="#一、环境说明：" class="headerlink" title="一、环境说明："></a>一、环境说明：</h3><ul>
-<li><p>LNMP环境</p>
-</li>
-<li><p>thinkPHP5项目</p>
-</li>
-</ul>
-<h3 id="二、适用说明："><a href="#二、适用说明：" class="headerlink" title="二、适用说明："></a>二、适用说明：</h3><ul>
-<li>通过lnmp一键配置服务器的环境</li>
-<li>thinkPHP5项目</li>
-<li>需要省略URL中的public以及index.php</li>
-</ul>
-<h3 id="三、步骤说明："><a href="#三、步骤说明：" class="headerlink" title="三、步骤说明："></a>三、步骤说明：</h3><ol>
-<li><p>注：修改配置文件之前请先做好备份。</p>
-</li>
-<li><p>将项目通过FTP或GIT上传至服务器，修改域名配置文件。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/nginx/conf/vhost/</span><br><span class="line">vim 域名.conf</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-<p>重点为：①将root目录定向至public目录下②引入重写规则rewrite/thinkphp.conf 配置内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">server</span><br><span class="line">    &#123;</span><br><span class="line">        listen 80;</span><br><span class="line">        #listen [::]:80;</span><br><span class="line">        server_name ********;</span><br><span class="line">        index index.html index.htm index.php default.html default.htm default.php;</span><br><span class="line">        root  /home/wwwroot/********/public/; </span><br><span class="line"></span><br><span class="line">        include rewrite/thinkphp.conf;</span><br><span class="line">        #error_page   404   /404.html;</span><br><span class="line">        include enable-php-pathinfo.conf;</span><br><span class="line"></span><br><span class="line">        # Deny access to PHP files in specific directory</span><br><span class="line">        #location ~ /(wp-content|uploads|wp-includes|images)/.*\.php$ &#123; deny all; &#125;</span><br><span class="line"></span><br><span class="line">        #include enable-php.conf;</span><br><span class="line"></span><br><span class="line">        location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$</span><br><span class="line">        &#123;</span><br><span class="line">            expires      30d;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location ~ .*\.(js|css)?$</span><br><span class="line">        &#123;</span><br><span class="line">            expires      12h;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location ~ /.well-known &#123;</span><br><span class="line">            allow all;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        location ~ /\.</span><br><span class="line">        &#123;</span><br><span class="line">            deny all;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        access_log off;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li><p>修改fastcgi.conf文件，将最后一行注释</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/nginx/conf</span><br><span class="line">vim fastcgi.conf</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">fastcgi_param  SCRIPT_FILENAME    $document_root$fastcgi_script_name;</span><br><span class="line">fastcgi_param  QUERY_STRING       $query_string;</span><br><span class="line">fastcgi_param  REQUEST_METHOD     $request_method;</span><br><span class="line">fastcgi_param  CONTENT_TYPE       $content_type;</span><br><span class="line">fastcgi_param  CONTENT_LENGTH     $content_length;</span><br><span class="line"></span><br><span class="line">fastcgi_param  SCRIPT_NAME        $fastcgi_script_name;</span><br><span class="line">fastcgi_param  REQUEST_URI        $request_uri;</span><br><span class="line">fastcgi_param  DOCUMENT_URI       $document_uri;</span><br><span class="line">fastcgi_param  DOCUMENT_ROOT      $document_root;</span><br><span class="line">fastcgi_param  SERVER_PROTOCOL    $server_protocol;</span><br><span class="line">fastcgi_param  REQUEST_SCHEME     $scheme;</span><br><span class="line">fastcgi_param  HTTPS              $https if_not_empty;</span><br><span class="line"></span><br><span class="line">fastcgi_param  GATEWAY_INTERFACE  CGI/1.1;</span><br><span class="line">fastcgi_param  SERVER_SOFTWARE    nginx/$nginx_version;</span><br><span class="line"></span><br><span class="line">fastcgi_param  REMOTE_ADDR        $remote_addr;</span><br><span class="line">fastcgi_param  REMOTE_PORT        $remote_port;</span><br><span class="line">fastcgi_param  SERVER_ADDR        $server_addr;</span><br><span class="line">fastcgi_param  SERVER_PORT        $server_port;</span><br><span class="line">fastcgi_param  SERVER_NAME        $server_name;</span><br><span class="line"></span><br><span class="line"># PHP only, required if PHP was built with --enable-force-cgi-redirect</span><br><span class="line">fastcgi_param  REDIRECT_STATUS    200;</span><br><span class="line">#fastcgi_param PHP_ADMIN_VALUE &quot;open_basedir=$document_root/:/tmp/:/proc/&quot;;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>之后重启lnmp</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lnmp restart</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>之后记得清空thinkPHP5项目的缓存。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd 项目目录</span><br><span class="line">cd runtime</span><br><span class="line">rm -rf cache/</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>之后便可以省略掉URL中的public/index.php进行访问项目。</p>
-</li>
-</ol>
-
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-    
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="cn">
-    <link itemprop="mainEntityOfPage" href="http://chdliutao.top/2019/10/18/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="刘涛">
-      <meta itemprop="description" content="成长记录博客">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CHD-刘涛">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2019/10/18/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-10-18 11:50:22" itemprop="dateCreated datePublished" datetime="2019-10-18T11:50:22+08:00">2019-10-18</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-    
   </div>
-
-  
-
 
 
           </div>
@@ -616,6 +315,11 @@
 
   <aside class="sidebar">
     <div class="sidebar-inner">
+        
+        
+        
+        
+      
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
@@ -628,6 +332,8 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#每日打卡小程序文档"><span class="nav-number">1.</span> <span class="nav-text">每日打卡小程序文档</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#需求："><span class="nav-number">1.0.0.1.</span> <span class="nav-text">需求：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据表结构设计："><span class="nav-number">1.0.0.2.</span> <span class="nav-text">数据表结构设计：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#接口设计："><span class="nav-number">1.0.0.3.</span> <span class="nav-text">接口设计：</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        
       </div>
       <!--/noindex-->
 
