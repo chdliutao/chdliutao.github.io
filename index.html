@@ -197,6 +197,161 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="cn">
+    <link itemprop="mainEntityOfPage" href="http://chdliutao.top/2019/10/24/go%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AE%9E%E7%8E%B0--%E9%98%9F%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="刘涛">
+      <meta itemprop="description" content="成长记录博客">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CHD-刘涛">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/2019/10/24/go%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AE%9E%E7%8E%B0--%E9%98%9F%E5%88%97/" class="post-title-link" itemprop="url">go基础数据结构实现--队列</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-10-24 12:45:07" itemprop="dateCreated datePublished" datetime="2019-10-24T12:45:07+08:00">2019-10-24</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>r==front<code>，队满的条件为</code>(rear+1)%max == front`</p>
+<p>   出队和入队时，首先将对应指针加一，然后赋值，确保队满条件满足。</p>
+   <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//go实现循环队列</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//如果rear == front则队列为空，如果在循环意义下,rear=fron-1，那么队列满</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//CirQueue 循环队列结构体定义</span></span><br><span class="line"><span class="keyword">type</span> CirQueue <span class="keyword">struct</span> &#123;</span><br><span class="line">	data        []<span class="keyword">int</span></span><br><span class="line">	front, rear <span class="keyword">int</span></span><br><span class="line">	max         <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//New 初始化一个长度的队列</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(cirqueue *CirQueue)</span> <span class="title">New</span><span class="params">(size <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	cirqueue.data = <span class="built_in">make</span>([]<span class="keyword">int</span>, size)</span><br><span class="line">	cirqueue.max = size</span><br><span class="line">	cirqueue.front, cirqueue.rear = size<span class="number">-1</span>, size<span class="number">-1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//EnQueue 循环队列入队</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(cirqueue *CirQueue)</span> <span class="title">EnQueue</span><span class="params">(val <span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> (cirqueue.rear+<span class="number">1</span>)%cirqueue.max == cirqueue.front &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">	&#125;</span><br><span class="line">	cirqueue.rear = (cirqueue.rear + <span class="number">1</span>) % cirqueue.max <span class="comment">//队尾在循环意义下加一</span></span><br><span class="line">	cirqueue.data[cirqueue.rear] = val</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//DeQueue 循环队列出队算法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(cirqueue *CirQueue)</span> <span class="title">DeQueue</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> cirqueue.rear == cirqueue.front &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">	&#125;</span><br><span class="line">	cirqueue.front = (cirqueue.front + <span class="number">1</span>) % cirqueue.max <span class="comment">//队头在循环意义下加一</span></span><br><span class="line">	<span class="keyword">return</span> cirqueue.data[cirqueue.front]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//GetQueue 获取队头元素算法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(cirqueue *CirQueue)</span> <span class="title">GetQueue</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> cirqueue.rear == cirqueue.front &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">	&#125;</span><br><span class="line">	i := (cirqueue.front + <span class="number">1</span>) % cirqueue.max</span><br><span class="line">	<span class="keyword">return</span> cirqueue.data[i]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//ShowItem 输出队列元素</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(cirqueue *CirQueue)</span> <span class="title">ShowItem</span><span class="params">()</span></span> &#123;</span><br><span class="line">	p := (cirqueue.front + <span class="number">1</span>) % cirqueue.max</span><br><span class="line">	t := cirqueue.rear</span><br><span class="line">	dataArray := []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">	<span class="keyword">for</span> p != t &#123;</span><br><span class="line">		dataArray = <span class="built_in">append</span>(dataArray, cirqueue.data[p])</span><br><span class="line">		p = (p + <span class="number">1</span>) % cirqueue.max</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(dataArray)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	myQueue := <span class="built_in">new</span>(CirQueue)</span><br><span class="line">	myQueue.New(<span class="number">10</span>)</span><br><span class="line">	myQueue.EnQueue(<span class="number">1</span>)</span><br><span class="line">	myQueue.EnQueue(<span class="number">2</span>)</span><br><span class="line">	myQueue.EnQueue(<span class="number">3</span>)</span><br><span class="line">	myQueue.EnQueue(<span class="number">4</span>)</span><br><span class="line">	myQueue.EnQueue(<span class="number">5</span>)</span><br><span class="line">	myQueue.ShowItem()</span><br><span class="line">	_ = myQueue.DeQueue()</span><br><span class="line">	myQueue.ShowItem()</span><br><span class="line">	_ = myQueue.DeQueue()</span><br><span class="line">	myQueue.ShowItem()</span><br><span class="line">	_ = myQueue.DeQueue()</span><br><span class="line">	myQueue.ShowItem()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="2">
+<li><p>链队列</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//go实现链队列</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Node 链表结点</span></span><br><span class="line"><span class="keyword">type</span> Node <span class="keyword">struct</span> &#123;</span><br><span class="line">	Val  <span class="keyword">int</span></span><br><span class="line">	Next *Node</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//LinkQueue 链队列</span></span><br><span class="line"><span class="keyword">type</span> LinkQueue <span class="keyword">struct</span> &#123;</span><br><span class="line">	front *Node <span class="comment">//队首指针</span></span><br><span class="line">	rear  *Node <span class="comment">//队尾指针</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//New 初始化一个空的链表队列</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(linkqueue *LinkQueue)</span> <span class="title">New</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">//创建一个空结点，将头尾指针指向空结点</span></span><br><span class="line">	temp := <span class="built_in">new</span>(Node)</span><br><span class="line">	linkqueue.front = temp</span><br><span class="line">	linkqueue.rear = temp</span><br><span class="line">	temp.Next = <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//EnQueue 入队操作</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(linkqueue *LinkQueue)</span> <span class="title">EnQueue</span><span class="params">(val <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	temp := <span class="built_in">new</span>(Node)</span><br><span class="line">	temp.Val = val</span><br><span class="line">	temp.Next = <span class="literal">nil</span></span><br><span class="line">	linkqueue.rear.Next = temp</span><br><span class="line">	linkqueue.rear = temp</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//DeQueue 出队操作</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(linkqueue *LinkQueue)</span> <span class="title">DeQueue</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> linkqueue.front == linkqueue.rear &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">	&#125;</span><br><span class="line">	p := linkqueue.front.Next <span class="comment">//暂存队头指针，front下一结点是队头</span></span><br><span class="line">	data := p.Val</span><br><span class="line">	linkqueue.front.Next = p.Next <span class="comment">//摘链，</span></span><br><span class="line">	<span class="keyword">if</span> p.Next == <span class="literal">nil</span> &#123;            <span class="comment">//如果将队内唯一的元素取出，则需要将尾指针放回头结点</span></span><br><span class="line">		linkqueue.front = linkqueue.rear</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> data</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//ShowItem 展示元素操作</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(linkqueue *LinkQueue)</span> <span class="title">ShowItem</span><span class="params">()</span></span> &#123;</span><br><span class="line">	p := linkqueue.front.Next</span><br><span class="line">	dataArray := []<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">	<span class="keyword">for</span> p != linkqueue.rear &amp;&amp; p != <span class="literal">nil</span> &#123;</span><br><span class="line">		dataArray = <span class="built_in">append</span>(dataArray, p.Val)</span><br><span class="line">		p = p.Next</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(dataArray)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	myQueue := <span class="built_in">new</span>(LinkQueue)</span><br><span class="line">	myQueue.New()</span><br><span class="line">	myQueue.EnQueue(<span class="number">1</span>)</span><br><span class="line">	myQueue.EnQueue(<span class="number">2</span>)</span><br><span class="line">	myQueue.EnQueue(<span class="number">3</span>)</span><br><span class="line">	myQueue.EnQueue(<span class="number">4</span>)</span><br><span class="line">	myQueue.ShowItem()</span><br><span class="line">	count := myQueue.DeQueue()</span><br><span class="line">	myQueue.ShowItem()</span><br><span class="line">	fmt.Println(count)</span><br><span class="line">	count = myQueue.DeQueue()</span><br><span class="line">	myQueue.ShowItem()</span><br><span class="line">	fmt.Println(count)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="cn">
+    <link itemprop="mainEntityOfPage" href="http://chdliutao.top/2019/10/24/go%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AE%9E%E7%8E%B0--%E6%A0%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="刘涛">
+      <meta itemprop="description" content="成长记录博客">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CHD-刘涛">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/2019/10/24/go%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AE%9E%E7%8E%B0--%E6%A0%88/" class="post-title-link" itemprop="url">go基础数据结构实现--栈</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-10-24 12:44:49" itemprop="dateCreated datePublished" datetime="2019-10-24T12:44:49+08:00">2019-10-24</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>   package main</p>
+<p>   //go顺序栈实现</p>
+<p>   //SeqStack 顺序栈，使用数组构建<br>   type SeqStack struct {<br>       max  int<br>       data []int<br>       top  int<br>   }</p>
+<p>   // New 栈的初始化操作<br>   func (myStack *SeqStack) New(size int) {<br>       myStack.data = make([]int, size)<br>       myStack.max = size<br>       myStack.top = -1<br>   }</p>
+<p>   // Push 数据入栈操作<br>   func (myStack *SeqStack) Push(value int) bool {<br>       if myStack.top == myStack.max-1 {<br>           return false<br>       }<br>       myStack.data[myStack.top] = value<br>       myStack.top++<br>       return true<br>   }</p>
+<p>   // Pop 数据出栈操作<br>   func (myStack *SeqStack) Pop() (int, bool) {<br>       if myStack.top == -1 {<br>           return 0, false<br>       }<br>       value := myStack.data[myStack.top]<br>       myStack.top–<br>       return value, true<br>   }</p>
+<p>   func main() {<br>       stack := SeqStack{}<br>       stack.New(5)<br>   }</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">   </span><br><span class="line"></span><br><span class="line">2. 链表栈实现：</span><br><span class="line"></span><br><span class="line">   ```go</span><br><span class="line">   package main</span><br><span class="line">   </span><br><span class="line">   import &quot;fmt&quot;</span><br><span class="line">   </span><br><span class="line">   //go实现链表栈</span><br><span class="line">   </span><br><span class="line">   //Node 链表结点定义</span><br><span class="line">   type Node struct &#123;</span><br><span class="line">   	Val  int</span><br><span class="line">   	Next *Node</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   // LinkStack 链表栈实现</span><br><span class="line">   type LinkStack struct &#123;</span><br><span class="line">   	pop *Node //栈顶指针</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   //New 初始化链表栈</span><br><span class="line">   func (linkstack *LinkStack) New() &#123;</span><br><span class="line">   	linkstack.pop = nil</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   // Push 数据入栈操作</span><br><span class="line">   func (linkstack *LinkStack) Push(value int) &#123;</span><br><span class="line">   	temp := new(Node)</span><br><span class="line">   	temp.Next = linkstack.pop</span><br><span class="line">   	temp.Val = value</span><br><span class="line">   	linkstack.pop = temp</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   //Pop 数据出栈操作</span><br><span class="line">   func (linkstack *LinkStack) Pop() int &#123;</span><br><span class="line">   	if linkstack.pop == nil &#123;</span><br><span class="line">   		return 0</span><br><span class="line">   	&#125;</span><br><span class="line">   	data := linkstack.pop.Val</span><br><span class="line">   	linkstack.pop = linkstack.pop.Next</span><br><span class="line">   	return data</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   //ShowItem 打印栈中数据</span><br><span class="line">   func (linkstack *LinkStack) ShowItem() &#123;</span><br><span class="line">   	p := linkstack.pop</span><br><span class="line">   	dataArray := []int&#123;&#125;</span><br><span class="line">   	for p != nil &#123;</span><br><span class="line">   		dataArray = append(dataArray, p.Val)</span><br><span class="line">   		p = p.Next</span><br><span class="line">   	&#125;</span><br><span class="line">   	fmt.Println(dataArray)</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   func main() &#123;</span><br><span class="line">   	linkstack := new(LinkStack)</span><br><span class="line">   	linkstack.New()</span><br><span class="line">   	linkstack.Push(1)</span><br><span class="line">   	linkstack.Push(2)</span><br><span class="line">   	linkstack.Push(3)</span><br><span class="line">   	linkstack.Push(4)</span><br><span class="line">   	linkstack.ShowItem()</span><br><span class="line">   	first := linkstack.Pop()</span><br><span class="line">   	fmt.Println(first)</span><br><span class="line">   	first = linkstack.Pop()</span><br><span class="line">   	fmt.Println(first)</span><br><span class="line">   	first = linkstack.Pop()</span><br><span class="line">   	fmt.Println(first)</span><br><span class="line">   </span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="cn">
     <link itemprop="mainEntityOfPage" href="http://chdliutao.top/2019/10/23/go%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AE%9E%E7%8E%B0--%E9%93%BE%E8%A1%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -722,7 +877,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
