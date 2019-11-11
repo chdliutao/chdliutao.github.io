@@ -197,6 +197,102 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="cn">
+    <link itemprop="mainEntityOfPage" href="http://chdliutao.top/2019/11/11/%E4%BD%BF%E7%94%A8PHP%E5%8A%A0Python%E8%BF%9B%E8%A1%8C%E4%B8%87%E8%83%BD%E8%A1%A8%E5%8D%95%E7%BB%93%E6%9E%9C%E7%BB%9F%E8%AE%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="刘涛">
+      <meta itemprop="description" content="个人博客">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CHD-刘涛">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/2019/11/11/%E4%BD%BF%E7%94%A8PHP%E5%8A%A0Python%E8%BF%9B%E8%A1%8C%E4%B8%87%E8%83%BD%E8%A1%A8%E5%8D%95%E7%BB%93%E6%9E%9C%E7%BB%9F%E8%AE%A1/" class="post-title-link" itemprop="url">使用PHP加Python进行万能表单结果统计.md</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-11-11 20:56:02 / Modified: 20:56:56" itemprop="dateCreated datePublished" datetime="2019-11-11T20:56:02+08:00">2019-11-11</time>
+            </span>
+          
+            
+
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="通过PHP与Python对表单提交结果进行统计"><a href="#通过PHP与Python对表单提交结果进行统计" class="headerlink" title="通过PHP与Python对表单提交结果进行统计"></a>通过PHP与Python对表单提交结果进行统计</h1><h3 id="小程序万能表单设计"><a href="#小程序万能表单设计" class="headerlink" title="小程序万能表单设计"></a>小程序万能表单设计</h3><h4 id="数据表结构："><a href="#数据表结构：" class="headerlink" title="数据表结构："></a>数据表结构：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">表单总表:form</span><br><span class="line">`ID`</span><br><span class="line">`title`			表单名称</span><br><span class="line">`desc`			表单描述</span><br><span class="line">`create_time`	创建时间</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">表单配置表:form_config</span><br><span class="line">`ID`</span><br><span class="line">`form_id`		表单ID</span><br><span class="line">`start_time`	开始日期</span><br><span class="line">`end_time`		截止日期</span><br><span class="line">`YXDM`			院系代码(为0则不考虑)</span><br><span class="line">`NJDM`			年级代码(为0则不考虑)</span><br><span class="line">`BJDM`			班级代码(为0则不考虑)</span><br><span class="line">`status`		问卷状态（0关闭,1开启）</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">表单问卷表:form_questionnaire</span><br><span class="line">`ID`</span><br><span class="line">`form_id`		表单ID</span><br><span class="line">`title`			表单标题</span><br><span class="line">`type`			表单类型（text，textarea，select，radio，image，position）</span><br><span class="line">`extra`			补充说明（selector,multiSelector,time,date,region参考[微信文档](https://developers.weixin.qq.com/miniprogram/dev/component/picker.html)）</span><br><span class="line">`placeholder`	前端输入框提示</span><br><span class="line">`options`		选项</span><br><span class="line">`status`		是否可见</span><br><span class="line">`must`			是否必须</span><br><span class="line">`validate`		验证规则(phone,number(1-100),require)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">结果记录表form_result</span><br><span class="line">`ID`		</span><br><span class="line">`config_id`		配置ID</span><br><span class="line">`form_id`		表单ID</span><br><span class="line">`user_id`		学号或者工号</span><br><span class="line">`open_id`		用户openid</span><br><span class="line">`title`			问题标题</span><br><span class="line">`value`			用户答案</span><br><span class="line">`timestamp`		填写时间</span><br></pre></td></tr></table></figure>
+
+<p>用户填写了两个问卷，现在需要对问卷结果进行统计。统计每个选项选择人数所占百分比。<br>问卷1要求对总体进行统计，对每个年级进行统计，对男女分别统计，对是否班干部进行统计。<br>问卷2要求对总体进行统计，对年级以及男女进行统计。</p>
+<p>初步思路：由于PHP操作数据较方便，因此由PHP获取统计数据后，用Python jupyter 写入Excel。</p>
+<p>PHP统计思路：首先获取总填写人数，之后获取到表单的options，对于每个options都去数据库中统计该选项的人数，之后算出比率，以json格式返回，之后用Python请求接口，将数据写入Excel。之后需要更换统计条件时，便修改查询条件直至Excel统计表完成。</p>
+<p>结果：获取一次数据的时间为40s，之后需要重复修改查询条件，如form_id以及年级等等。</p>
+<p>PHP 代码如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">set_time_limit(<span class="number">0</span>);</span><br><span class="line">$form_id = <span class="number">2</span>;</span><br><span class="line">$nj = <span class="string">"2016"</span>;</span><br><span class="line">$finishedStuCount = Db::view(<span class="string">"form_result"</span>)</span><br><span class="line">	<span class="comment">// -&gt; where("value","学生干部")</span></span><br><span class="line">	-&gt; group(<span class="string">"user_id"</span>)</span><br><span class="line">	-&gt; where(<span class="string">"form_id"</span>,$form_id)</span><br><span class="line">	-&gt; view(<span class="string">"stu_detail"</span>,<span class="string">"YXDM,XH"</span>,<span class="string">"form_result.user_id = stu_detail.XH"</span>)</span><br><span class="line">	<span class="comment">// -&gt; where("user_id","LIKE","$nj%")</span></span><br><span class="line">	<span class="comment">// -&gt; where("XBDM",2)</span></span><br><span class="line">   -&gt; count();</span><br><span class="line">$questionnaire=Db::name(<span class="string">"form_questionnaire"</span>)-&gt;where(<span class="string">"form_id"</span>,$form_id) -&gt; select();</span><br><span class="line">$result = [</span><br><span class="line">    <span class="string">"ques1"</span> =&gt;  [],</span><br><span class="line">    <span class="string">"ques2"</span> =&gt;  [],</span><br><span class="line">];</span><br><span class="line"><span class="keyword">foreach</span> ($questionnaire <span class="keyword">as</span> $key =&gt; $value) &#123;</span><br><span class="line">	<span class="keyword">if</span> ($value[<span class="string">"type"</span>] == <span class="string">"radio"</span>) &#123;</span><br><span class="line">        $temp = [</span><br><span class="line">        	<span class="string">"title"</span> =&gt;  $value[<span class="string">"title"</span>],</span><br><span class="line">        ];</span><br><span class="line">        $options = json_decode($value[<span class="string">"options"</span>],<span class="keyword">true</span>);</span><br><span class="line">        <span class="keyword">foreach</span> ($options <span class="keyword">as</span> $k =&gt; $v) &#123;</span><br><span class="line">			$stuCount = Db::name(<span class="string">"form_result"</span>)</span><br><span class="line">				<span class="comment">// -&gt; where("user_id","IN",function($query)&#123;</span></span><br><span class="line">				<span class="comment">// $query-&gt;table('fa_form_result')-&gt;where('value',"学生干部")-&gt;group("user_id")-&gt;field('user_id');</span></span><br><span class="line">				<span class="comment">// &#125;)</span></span><br><span class="line">				-&gt; group(<span class="string">"user_id"</span>)</span><br><span class="line">				<span class="comment">// -&gt; view("stu_detail","YXDM,XH","form_result.user_id = stu_detail.XH")</span></span><br><span class="line">                <span class="comment">// -&gt; where("user_id","LIKE","$nj%")</span></span><br><span class="line">                <span class="comment">// -&gt; where("XBDM",2)</span></span><br><span class="line">                <span class="comment">// -&gt; where("user_id","LIKE","$nj%")</span></span><br><span class="line">                -&gt; where(<span class="string">"form_id"</span>,$form_id)</span><br><span class="line">                -&gt; where(<span class="string">"title"</span>,$value[<span class="string">"title"</span>])</span><br><span class="line">                -&gt; where(<span class="string">"value"</span>,$v)</span><br><span class="line">                -&gt; count(); </span><br><span class="line">		$rate = round($stuCount/$finishedStuCount,<span class="number">4</span>);</span><br><span class="line">		$temp[<span class="string">"data"</span>][]   = $rate;</span><br><span class="line">       	&#125;</span><br><span class="line">    $result[<span class="string">"ques1"</span>][] = $temp;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> ($value[<span class="string">"type"</span>] == <span class="string">"checkbox"</span>) &#123;</span><br><span class="line">        $temp = [</span><br><span class="line">            <span class="string">"title"</span> =&gt;  $value[<span class="string">"title"</span>],</span><br><span class="line">        ];</span><br><span class="line">        $options = json_decode($value[<span class="string">"options"</span>],<span class="keyword">true</span>);</span><br><span class="line">        <span class="keyword">foreach</span> ($options <span class="keyword">as</span> $k =&gt; $v) &#123;</span><br><span class="line">            $stuCount = Db::name(<span class="string">"form_result"</span>)</span><br><span class="line">            <span class="comment">// -&gt; where("user_id","IN",function($query)&#123;</span></span><br><span class="line">            <span class="comment">//    $query-&gt;table('fa_form_result')-&gt;where('value',"学生干部")-&gt;group("user_id")-&gt;field('user_id');</span></span><br><span class="line">            <span class="comment">// &#125;)</span></span><br><span class="line">            -&gt; group(<span class="string">"user_id"</span>)</span><br><span class="line">            -&gt; where(<span class="string">"form_id"</span>,$form_id)</span><br><span class="line">            <span class="comment">// -&gt; where("user_id","LIKE","$nj%")</span></span><br><span class="line">            <span class="comment">// -&gt; view("stu_detail","YXDM,XH","form_result.user_id = stu_detail.XH")</span></span><br><span class="line">            <span class="comment">// -&gt; where("user_id","LIKE","$nj%")</span></span><br><span class="line">            <span class="comment">// -&gt; where("XBDM",2)</span></span><br><span class="line">            -&gt; where(<span class="string">"title"</span>,$value[<span class="string">"title"</span>])</span><br><span class="line">            -&gt; where(<span class="string">"value"</span>,<span class="string">"LIKE"</span>,<span class="string">"%$v%"</span>)</span><br><span class="line">            -&gt; count(); </span><br><span class="line">            $rate = round($stuCount/$finishedStuCount,<span class="number">4</span>);</span><br><span class="line">            $temp[<span class="string">"data"</span>][]   = $rate;</span><br><span class="line">        &#125;</span><br><span class="line">        $result[<span class="string">"ques1"</span>][] = $temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> json($result);</span><br></pre></td></tr></table></figure>
+
+<p>Python代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> csv</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">start = time.clock()</span><br><span class="line">url = <span class="string">"http://localhost:8080/yibanbx/public/api/index/index"</span></span><br><span class="line">response = requests.get(url)</span><br><span class="line">elapsed = (time.clock() - start)</span><br><span class="line"></span><br><span class="line">res = json.loads(response.text)</span><br><span class="line">ques = res[<span class="string">"ques1"</span>]</span><br><span class="line">result = &#123;&#125;</span><br><span class="line">columns = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> ques:</span><br><span class="line">    columns.append(i[<span class="string">"title"</span>])</span><br><span class="line">    <span class="keyword">while</span> len(i[<span class="string">"data"</span>]) &lt; <span class="number">9</span> :</span><br><span class="line">        i[<span class="string">"data"</span>].append(<span class="string">""</span>)</span><br><span class="line">    result[i[<span class="string">"title"</span>]] = i[<span class="string">"data"</span>]</span><br><span class="line">dataFrame = pd.DataFrame(result)</span><br><span class="line">dataFrame.to_csv(<span class="string">"test.csv"</span>,index=<span class="literal">False</span>,sep=<span class="string">','</span>,encoding = <span class="string">'utf_8_sig'</span>,columns = columns)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># res = json.loads(response.text)</span></span><br><span class="line"><span class="comment"># columns = res.keys()</span></span><br><span class="line"><span class="comment"># dataFrame = pd.DataFrame(res)</span></span><br><span class="line"><span class="comment"># dataFrame.to_csv("test.csv",index=False,sep=',',encoding = 'utf_8_sig',columns = columns)</span></span><br></pre></td></tr></table></figure>
+
+<p>时间优化：</p>
+<p>1.思考避免在循环中进行SQL查询。因此先一次性将数据查出，对数组进行处理。</p>
+<p>2.在Python请求时可以添加参数，这样可以同时进行多个请求。</p>
+<p>本次代码需要注意的地方：</p>
+<p>Python部分：由于字典类似于哈希表，存储时乱序因此写入csv时需要加入columns参数固定列的顺序。同时to_csv函数要保证写的数据行数相同，因此需要对数据进行清洗。</p>
+<p>PHP部分：thinkPHP框架的子查询书写方式：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$stuCount = Db::name(<span class="string">"form_result"</span>)</span><br><span class="line">    <span class="comment">// -&gt; where("user_id","IN",function($query)&#123;</span></span><br><span class="line">    <span class="comment">//    $query-&gt;table('fa_form_result')-&gt;where('value',"学生干部")-&gt;group("user_id")-&gt;field('user_id');</span></span><br><span class="line">    <span class="comment">// &#125;)</span></span><br></pre></td></tr></table></figure>
+
+
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="cn">
     <link itemprop="mainEntityOfPage" href="http://chdliutao.top/2019/11/05/go%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AE%9E%E7%8E%B0-%E5%9B%BE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1207,88 +1303,12 @@
   
 
     
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="cn">
-    <link itemprop="mainEntityOfPage" href="http://chdliutao.top/2019/10/18/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="刘涛">
-      <meta itemprop="description" content="个人博客">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CHD-刘涛">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2019/10/18/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-10-18 11:50:22" itemprop="dateCreated datePublished" datetime="2019-10-18T11:50:22+08:00">2019-10-18</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-    
   </div>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
 
 
 
@@ -1332,7 +1352,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
