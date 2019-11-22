@@ -197,6 +197,84 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="cn">
+    <link itemprop="mainEntityOfPage" href="http://chdliutao.top/2019/11/22/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8PHPmyadmin%E4%B8%8A%E4%BC%A0%E8%B6%85%E8%BF%87%E5%A4%A7%E5%B0%8F%E9%99%90%E5%88%B6%E7%9A%84sql%E6%96%87%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="刘涛">
+      <meta itemprop="description" content="个人博客">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CHD-刘涛">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            
+            <a href="/2019/11/22/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8PHPmyadmin%E4%B8%8A%E4%BC%A0%E8%B6%85%E8%BF%87%E5%A4%A7%E5%B0%8F%E9%99%90%E5%88%B6%E7%9A%84sql%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">如何使用PHPmyadmin上传超过大小限制的sql文件</a>
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2019-11-22 11:04:14" itemprop="dateCreated datePublished" datetime="2019-11-22T11:04:14+08:00">2019-11-22</time>
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <hr>
+<p>title: 如何使用PHPmyadmin上传超过大小限制的sql文件<br>date: 2019-11-22 11:02:44<br>tags:<br>–</p>
+<h2 id="如何使用PHPmyadmin上传超过大小限制的sql文件"><a href="#如何使用PHPmyadmin上传超过大小限制的sql文件" class="headerlink" title="如何使用PHPmyadmin上传超过大小限制的sql文件"></a>如何使用PHPmyadmin上传超过大小限制的sql文件</h2><p>在PHPmyadmin中，上传SQL文件时通常会有50M等限制，想上传超过该大小限制的文件，尝试过修改php.ini但是效果不明显，后来发现一中十分简便的方法。</p>
+<p>1、进入phpmyadmin文件夹 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /home/wwwroot/default/phpmyadmin</span><br><span class="line">vim config.sample.inc.php</span><br></pre></td></tr></table></figure>
+
+<p>找到其中的两个配置，修改为upload与save</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$cfg[&apos;UploadDir&apos;] = &apos;upload&apos;;</span><br><span class="line">$cfg[&apos;SaveDir&apos;] = &apos;save&apos;;</span><br></pre></td></tr></table></figure>
+
+<p>之后在phpmyadmin目录下，新建一个文件夹upload，通过ftp服务将需要导入的数据库放入upload文件夹下</p>
+<p>进入phpmyadmin的操作界面，选择从网站服务器上传文件夹 <strong>upload/</strong> 中选择 ，便可以进行上传。</p>
+<p>-</p>
+
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+    
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="cn">
     <link itemprop="mainEntityOfPage" href="http://chdliutao.top/2019/11/17/LeetCode%E7%AE%97%E6%B3%95%E9%A2%98-%E5%A0%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1204,86 +1282,6 @@
   
 
     
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="cn">
-    <link itemprop="mainEntityOfPage" href="http://chdliutao.top/2019/10/23/%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%E5%BA%94%E7%94%A8%E6%96%87%E6%A1%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="刘涛">
-      <meta itemprop="description" content="个人博客">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CHD-刘涛">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            
-            <a href="/2019/10/23/%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%E5%BA%94%E7%94%A8%E6%96%87%E6%A1%A3/" class="post-title-link" itemprop="url">每日打卡应用文档</a>
-          
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              
-                
-              
-
-              <time title="Created: 2019-10-23 13:42:16" itemprop="dateCreated datePublished" datetime="2019-10-23T13:42:16+08:00">2019-10-23</time>
-            </span>
-          
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="每日打卡小程序文档"><a href="#每日打卡小程序文档" class="headerlink" title="每日打卡小程序文档"></a>每日打卡小程序文档</h1><h4 id="需求："><a href="#需求：" class="headerlink" title="需求："></a>需求：</h4><p>每日早起打卡应用。</p>
-<h4 id="数据表结构设计："><a href="#数据表结构设计：" class="headerlink" title="数据表结构设计："></a>数据表结构设计：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1、表名：fa_clock_activity_list</span><br><span class="line">描述：活动记录表（每个活动为一个打卡周期）</span><br><span class="line">字段：</span><br><span class="line">`ID`	int		活动ID</span><br><span class="line">`HDMC`	varchar	活动名称</span><br><span class="line">`KSSJ`	int		活动开始时间</span><br><span class="line">`JSSJ`	int		活动结束时间</span><br><span class="line">`DKKSSJ`varchar	打卡开始时间</span><br><span class="line">`DKJSSJ`varchar	打卡结束时间</span><br><span class="line">`extro`	text	备用</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">2、表名：fa_clock_apply_list</span><br><span class="line">表述：打卡活动报名表</span><br><span class="line">字段：</span><br><span class="line">`ID`	int		自增ID</span><br><span class="line">`XH`	varchar	学号</span><br><span class="line">`HDID`	int		活动ID 外键</span><br><span class="line">`BMSJ`	int		报名时间</span><br><span class="line">`LJTS`	int		活动内累计打卡天数</span><br><span class="line">`LXTS`	int		活动内连续打卡天数</span><br><span class="line">`maxLXTS`int	最大连续打卡天数</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">3、表名：fa_clock_user_list</span><br><span class="line">描述：打卡活动打卡记录表</span><br><span class="line">字段：</span><br><span class="line">`ID`	int		自增ID</span><br><span class="line">`XH`	varchar	学号</span><br><span class="line">`HDID`	int		活动ID</span><br><span class="line">`DKSJ`	int		打卡时间</span><br></pre></td></tr></table></figure>
-
-<h4 id="接口设计："><a href="#接口设计：" class="headerlink" title="接口设计："></a>接口设计：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line">1、miniapp/clock/index</span><br><span class="line">初始化接口</span><br><span class="line">@param int key[&quot;XH&quot;] &amp;&amp; $key[&quot;open_id&quot;]</span><br><span class="line">@return array</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//活动未开始</span><br><span class="line">[</span><br><span class="line">	&quot;status&quot;	=&gt;	200,</span><br><span class="line">	&quot;msg&quot;		=&gt;	&quot;success&quot;,</span><br><span class="line">	&quot;data&quot;		=&gt;	[</span><br><span class="line">		&quot;clock_status&quot;	=&gt;	[</span><br><span class="line">			&quot;is_activity&quot;	=&gt;	false, //当前没有活动</span><br><span class="line">			&quot;is_wait&quot;		=&gt;	true,//有活动但未开始，为false则表示无活动</span><br><span class="line">			&quot;start_time&quot;	=&gt;	&quot;&quot;,	//活动开始时间</span><br><span class="line">		],</span><br><span class="line">		&quot;personal_info&quot;		=&gt;	[],//个人信息</span><br><span class="line">		&quot;rank_info&quot;			=&gt;	[],//排行信息</span><br><span class="line">		&quot;rand_str&quot;			=&gt;	&quot;&quot;,//随机字符串</span><br><span class="line">	]</span><br><span class="line">]</span><br><span class="line">//活动已开始，且用户未报名</span><br><span class="line">[</span><br><span class="line">	&quot;status&quot;	=&gt;	200,</span><br><span class="line">	&quot;msg&quot;		=&gt;	&quot;success&quot;,</span><br><span class="line">	&quot;data&quot;		=&gt;	[</span><br><span class="line">		&quot;clock_status&quot;	=&gt;	[</span><br><span class="line">			&quot;is_activity&quot;	=&gt;	true, //当前有活动</span><br><span class="line">			&quot;is_apply&quot;		=&gt;	false	//当前用户</span><br><span class="line">			&quot;activity_id&quot;	=&gt;	&quot;&quot;,//活动ID</span><br><span class="line">		],</span><br><span class="line">		&quot;personal_info&quot;		=&gt;	[],//个人信息</span><br><span class="line">		&quot;rank_info&quot;			=&gt;	[],//排行信息</span><br><span class="line">		&quot;rand_str&quot;			=&gt;	&quot;&quot;,//随机字符串</span><br><span class="line">	]</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">//活动已开始，且用户报名，尚未打卡</span><br><span class="line">[</span><br><span class="line">	&quot;status&quot;	=&gt;	200,</span><br><span class="line">	&quot;msg&quot;		=&gt;	&quot;success&quot;,</span><br><span class="line">	&quot;data&quot;		=&gt;	[</span><br><span class="line">		&quot;clock_status&quot;	=&gt;	[</span><br><span class="line">			&quot;is_activity&quot;	=&gt;	true, //当前有活动</span><br><span class="line">			&quot;is_apply&quot;		=&gt;	true	//当前用户</span><br><span class="line">			&quot;is_dk&quot;			=&gt;	false,</span><br><span class="line">			&quot;dk_start_time&quot;	=&gt;	&quot;&quot;,//打卡开始时间</span><br><span class="line">			&quot;dk_end_time&quot;	=&gt;	&quot;&quot;,//打卡结束时间</span><br><span class="line">			&quot;activity_id&quot;	=&gt;	&quot;&quot;,//活动ID</span><br><span class="line">			&quot;can_dk&quot;		=&gt;	true,//是否可以打卡</span><br><span class="line">		],</span><br><span class="line">		&quot;personal_info&quot;		=&gt;	[],//个人信息</span><br><span class="line">		&quot;rank_info&quot;			=&gt;	[],//排行信息</span><br><span class="line">		&quot;rand_str&quot;			=&gt;	&quot;&quot;,//随机字符串</span><br><span class="line">	]</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">//活动已开始，且用户报名，已经打卡</span><br><span class="line">[</span><br><span class="line">	&quot;status&quot;	=&gt;	200,</span><br><span class="line">	&quot;msg&quot;		=&gt;	&quot;success&quot;,</span><br><span class="line">	&quot;data&quot;		=&gt;	[</span><br><span class="line">		&quot;clock_status&quot;	=&gt;	[</span><br><span class="line">			&quot;is_activity&quot;	=&gt;	true, //当前有活动</span><br><span class="line">			&quot;is_apply&quot;		=&gt;	true	//当前用户</span><br><span class="line">			&quot;is_dk&quot;			=&gt;	true,</span><br><span class="line">			&quot;dk_next_time&quot;	=&gt;	&quot;&quot;,//距离下次打卡的时间</span><br><span class="line">		],</span><br><span class="line">		&quot;personal_info&quot;		=&gt;	[],//个人信息</span><br><span class="line">		&quot;rank_info&quot;			=&gt;	[],//排行信息</span><br><span class="line">		&quot;rand_str&quot;			=&gt;	&quot;&quot;,//随机字符串</span><br><span class="line">	]</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">//个人信息+排行信息</span><br><span class="line">[</span><br><span class="line">	&quot;status&quot;	=&gt;	200,</span><br><span class="line">	&quot;msg&quot;		=&gt;	&quot;success&quot;,</span><br><span class="line">	&quot;data&quot;		=&gt;	[</span><br><span class="line">		&quot;rand_str&quot;			=&gt;	&quot;&quot;,//随机字符串</span><br><span class="line">		&quot;clock_status&quot;	=&gt;	[],</span><br><span class="line">		&quot;personal_info&quot;	=&gt;	[</span><br><span class="line">			&quot;running_days&quot;			=&gt;	&quot;&quot;,//连续打卡天数</span><br><span class="line">			&quot;total_activity_days&quot;	=&gt;	&quot;&quot;,//活动期间内累计打卡天数</span><br><span class="line">			&quot;total_days&quot;			=&gt;	&quot;&quot;,//历史累计打卡天数</span><br><span class="line">		],</span><br><span class="line">		&quot;rank_info&quot;		=&gt;	[</span><br><span class="line">			&quot;runnging_list&quot;	=&gt;	[</span><br><span class="line">				[&quot;XM&quot;=&gt;&quot;&quot;,&quot;YXMC&quot;=&gt;&quot;&quot;,&quot;clock_time&quot;=&gt;&quot;&quot;],</span><br><span class="line">				[&quot;XM&quot;=&gt;&quot;&quot;,&quot;YXMC&quot;=&gt;&quot;&quot;,&quot;clock_time&quot;=&gt;&quot;&quot;],</span><br><span class="line">				[&quot;XM&quot;=&gt;&quot;&quot;,&quot;YXMC&quot;=&gt;&quot;&quot;,&quot;clock_time&quot;=&gt;&quot;&quot;],</span><br><span class="line">				...</span><br><span class="line">			],</span><br><span class="line">			&quot;total_activity_list&quot;	=&gt;	[</span><br><span class="line">				[&quot;XM&quot;=&gt;&quot;&quot;,&quot;YXMC&quot;=&gt;&quot;&quot;,&quot;nums&quot;=&gt;&quot;&quot;],</span><br><span class="line">				[&quot;XM&quot;=&gt;&quot;&quot;,&quot;YXMC&quot;=&gt;&quot;&quot;,&quot;nums&quot;=&gt;&quot;&quot;],</span><br><span class="line">				[&quot;XM&quot;=&gt;&quot;&quot;,&quot;YXMC&quot;=&gt;&quot;&quot;,&quot;nums&quot;=&gt;&quot;&quot;],</span><br><span class="line">				...</span><br><span class="line">			],</span><br><span class="line">			&quot;total_list&quot;			=&gt;	[</span><br><span class="line">				[&quot;XM&quot;=&gt;&quot;&quot;,&quot;YXMC&quot;=&gt;&quot;&quot;,&quot;nums&quot;=&gt;&quot;&quot;],</span><br><span class="line">				[&quot;XM&quot;=&gt;&quot;&quot;,&quot;YXMC&quot;=&gt;&quot;&quot;,&quot;nums&quot;=&gt;&quot;&quot;],</span><br><span class="line">				[&quot;XM&quot;=&gt;&quot;&quot;,&quot;YXMC&quot;=&gt;&quot;&quot;,&quot;nums&quot;=&gt;&quot;&quot;],</span><br><span class="line">				...</span><br><span class="line">			],</span><br><span class="line">	</span><br><span class="line">		],</span><br><span class="line">	]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">2、miniapp/clock/apply</span><br><span class="line">报名接口</span><br><span class="line">@param int key[&quot;XH&quot;] &amp;&amp; $key[&quot;open_id&quot;] &amp;&amp; $key[&quot;activity_id&quot;]</span><br><span class="line">@return array</span><br><span class="line"></span><br><span class="line">//报名成功</span><br><span class="line">[</span><br><span class="line">	&quot;status&quot;	=&gt;	200,</span><br><span class="line">	&quot;msg&quot;		=&gt;	&quot;报名成功&quot;,</span><br><span class="line">	&quot;data&quot;		=&gt;	[</span><br><span class="line">		&quot;clock_time&quot;	=&gt;	&quot;&quot;,//每天打卡时间</span><br><span class="line">	]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">3、miniapp/clock/clock</span><br><span class="line">打卡接口</span><br><span class="line">@param int key[&quot;XH&quot;] &amp;&amp; $key[&quot;open_id&quot;] &amp;&amp; $key[&quot;activity_id&quot;]</span><br><span class="line">@return array</span><br><span class="line"></span><br><span class="line">//打卡成功</span><br><span class="line">[</span><br><span class="line">	&quot;status&quot;	=&gt;	200,</span><br><span class="line">	&quot;msg&quot;		=&gt;	&quot;打卡成功&quot;,</span><br><span class="line">	&quot;data&quot;		=&gt;	[</span><br><span class="line">		&quot;clock_time&quot;	=&gt;	&quot;&quot;,//下次打卡时间</span><br><span class="line">	]</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">//打卡失败</span><br><span class="line">[</span><br><span class="line">	&quot;status&quot;	=&gt;	200,</span><br><span class="line">	&quot;msg&quot;		=&gt;	&quot;打卡失败，未到打卡时间&quot;,</span><br><span class="line">	&quot;data&quot;		=&gt;	[</span><br><span class="line">		&quot;clock_time&quot;	=&gt;	&quot;&quot;,//下次打卡时间</span><br><span class="line">	]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-
-
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-    
   </div>
 
   
@@ -1333,7 +1331,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
