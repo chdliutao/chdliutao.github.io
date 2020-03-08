@@ -1,62 +1,27 @@
 <!DOCTYPE html>
-
-
-
-
-
 <html lang="cn">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 4.0.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.1">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.1">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.1">
-  <link rel="mask-icon" href="/images/logo.svg?v=7.4.1" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-<link rel="stylesheet" href="/css/main.css?v=7.4.1">
+<link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
-
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
 
 <script id="hexo-configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Muse',
-    version: '7.4.1',
-    exturl: false,
-    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
-    copycode: {"enable":false,"show_result":false,"style":null},
-    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
-    bookmark: {"enable":false,"color":"#222","save":"auto"},
-    fancybox: false,
-    mediumzoom: false,
-    lazyload: false,
-    pangu: false,
-    algolia: {
-      appID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    },
-    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
-    path: '',
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    translation: {
-      copy_button: 'Copy',
-      copy_success: 'Copied',
-      copy_failure: 'Copy failed'
-    },
-    sidebarPadding: 40
-  };
-</script>
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chdliutao.top","root":"/","scheme":"Pisces","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
   <meta name="description" content="每日打卡小程序文档需求：每日早起打卡应用。 数据表结构设计：123456789101、表名：fa_clock_activity_list描述：活动记录表（每个活动为一个打卡周期）字段：`ID`	int		活动ID`HDMC`	varchar	活动名称`KSSJ`	int		活动开始时间`JSSJ`	int		活动结束时间`DKKSSJ`varchar	打卡开始时间`DKJSSJ`varchar	打">
-<meta name="keywords" content="IT Blog">
+<meta name="keywords" content="个人博客">
 <meta property="og:type" content="article">
 <meta property="og:title" content="每日打卡应用文档">
 <meta property="og:url" content="http:&#x2F;&#x2F;chdliutao.top&#x2F;2019&#x2F;10&#x2F;23&#x2F;%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%E5%BA%94%E7%94%A8%E6%96%87%E6%A1%A3&#x2F;index.html">
@@ -65,24 +30,21 @@
 <meta property="og:locale" content="cn">
 <meta property="og:updated_time" content="2019-10-23T05:42:16.121Z">
 <meta name="twitter:card" content="summary">
-  <link rel="canonical" href="http://chdliutao.top/2019/10/23/%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%E5%BA%94%E7%94%A8%E6%96%87%E6%A1%A3/">
+
+<link rel="canonical" href="http://chdliutao.top/2019/10/23/%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%E5%BA%94%E7%94%A8%E6%96%87%E6%A1%A3/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: false,
-    isPost: true,
-    isPage: false,
-    isArchive: false
+    isHome : false,
+    isPost : true
   };
 </script>
 
   <title>每日打卡应用文档 | CHD-刘涛</title>
   
-
-
 
 
 
@@ -120,6 +82,14 @@
 
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
   <div class="site-meta">
 
     <div>
@@ -130,14 +100,10 @@
       </a>
     </div>
         <p class="site-subtitle">个人博客</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
     </div>
   </div>
 </div>
@@ -146,35 +112,27 @@
 <nav class="site-nav">
   
   <ul id="menu" class="menu">
-      
-      
-        
-        
         <li class="menu-item menu-item-home">
-      
-    
 
     <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
 
   </li>
-      
-    
-      
-      
-        
-        
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
-      
-    
 
     <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
 
   </li>
-      
-    
   </ul>
-
-    
 
 </nav>
 </div>
@@ -190,6 +148,8 @@
     <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
+          
+
           <div class="content">
             
 
@@ -201,9 +161,9 @@
     <link itemprop="mainEntityOfPage" href="http://chdliutao.top/2019/10/23/%E6%AF%8F%E6%97%A5%E6%89%93%E5%8D%A1%E5%BA%94%E7%94%A8%E6%96%87%E6%A1%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="刘涛">
-      <meta itemprop="description" content="个人博客">
       <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="刘涛">
+      <meta itemprop="description" content="好好写代码，开发优质产品。">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -211,11 +171,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
-            每日打卡应用文档
-            
-
-          
+          每日打卡应用文档
         </h1>
 
         <div class="post-meta">
@@ -225,13 +181,8 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              
-                
-              
-
               <time title="Created: 2019-10-23 13:42:16" itemprop="dateCreated datePublished" datetime="2019-10-23T13:42:16+08:00">2019-10-23</time>
             </span>
-          
 
           
 
@@ -264,33 +215,23 @@
     
     
     
-        
-      
 
       <footer class="post-footer">
 
         
 
-          <div class="post-nav">
-            <div class="post-nav-next post-nav-item">
-              
-                <a href="/2019/10/18/thinkPHP5%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA%E7%9C%81%E7%95%A5public%E4%BB%A5%E5%8F%8Aindex-php/" rel="next" title="thinkPHP5项目搭建省略public以及index.php">
-                  <i class="fa fa-chevron-left"></i> thinkPHP5项目搭建省略public以及index.php
-                </a>
-              
-            </div>
 
-            <span class="post-nav-divider"></span>
-
-            <div class="post-nav-prev post-nav-item">
-              
-                <a href="/2019/10/23/linux%E5%91%BD%E4%BB%A4%E7%BB%83%E4%B9%A0/" rel="prev" title="linux命令练习">
-                  linux命令练习 <i class="fa fa-chevron-right"></i>
-                </a>
-              
-            </div>
-          </div>
         
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/10/18/thinkPHP5%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA%E7%9C%81%E7%95%A5public%E4%BB%A5%E5%8F%8Aindex-php/" rel="prev" title="thinkPHP5项目搭建省略public以及index.php">
+      <i class="fa fa-chevron-left"></i> thinkPHP5项目搭建省略public以及index.php
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/10/23/linux%E5%91%BD%E4%BB%A4%E7%BB%83%E4%B9%A0/" rel="next" title="linux命令练习">
+      linux命令练习 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
       </footer>
     
   </article>
@@ -304,6 +245,28 @@
           </div>
           
 
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
         </div>
           
   
@@ -315,11 +278,6 @@
 
   <aside class="sidebar">
     <div class="sidebar-inner">
-        
-        
-        
-        
-      
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
@@ -333,35 +291,27 @@
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
           <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#每日打卡小程序文档"><span class="nav-number">1.</span> <span class="nav-text">每日打卡小程序文档</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#需求："><span class="nav-number">1.0.0.1.</span> <span class="nav-text">需求：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据表结构设计："><span class="nav-number">1.0.0.2.</span> <span class="nav-text">数据表结构设计：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#接口设计："><span class="nav-number">1.0.0.3.</span> <span class="nav-text">接口设计：</span></a></li></ol></li></ol></li></ol></li></ol></div>
-        
       </div>
       <!--/noindex-->
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">刘涛</p>
-  <div class="site-description" itemprop="description">个人博客</div>
+  <div class="site-description" itemprop="description">好好写代码，开发优质产品。</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-        
           <a href="/archives/">
         
-          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-count">14</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
-    
-      
-      
       <div class="site-state-item site-state-tags">
-        
         <span class="site-state-item-count">1</span>
         <span class="site-state-item-name">tags</span>
-        
       </div>
-    
   </nav>
 </div>
 
@@ -382,6 +332,7 @@
         
 
 <div class="copyright">
+  
   &copy; 
   <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
@@ -392,9 +343,7 @@
   <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.0.0
   </div>
   <span class="post-meta-divider">|</span>
-  <div class="theme-info">
-      
-    Theme – <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.1
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.2
   </div>
 
         
@@ -406,25 +355,17 @@
 
 
 
-
-
-
-
-        
       </div>
     </footer>
   </div>
 
   
-    
-  
-  <script color='0,0,255' opacity='0.5' zIndex='-1' count='150' src="/lib/canvas-nest/canvas-nest.min.js"></script>
-  <script src="/lib/anime.min.js?v=3.1.0"></script>
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-<script src="/js/utils.js?v=7.4.1"></script><script src="/js/motion.js?v=7.4.1"></script>
-<script src="/js/schemes/muse.js?v=7.4.1"></script>
-<script src="/js/next-boot.js?v=7.4.1"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
 
 
 
@@ -443,14 +384,6 @@
 
 
 
-
-
-
-
-
-
-
-  
 
   
 
