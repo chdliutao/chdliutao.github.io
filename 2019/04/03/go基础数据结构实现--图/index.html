@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chdliutao.top","root":"/","scheme":"Pisces","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="注意图的各种定义。图分为无向图和有向图。无向图由顶点和边组成。有向图由顶点和弧组成。分为弧头和弧尾。 简单图。完全图。度。入度，出度。网。连通图。强连通图。连通分量。强连通分量。 存储结构：邻接表，邻接矩阵。 邻接矩阵（无向图）：用一个一维数组表示顶点，二维数组表示边。两顶点有边则为1，反之为0。是对称矩阵。邻接矩阵（有向图）：用一个一维数组表示顶点，二维数组表示边。弧头为x，弧尾为y，对应1。非">
+<meta name="keywords" content="GO,编程语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go基础数据结构实现--图">
+<meta property="og:url" content="http:&#x2F;&#x2F;chdliutao.top&#x2F;2019&#x2F;04&#x2F;03&#x2F;go%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AE%9E%E7%8E%B0--%E5%9B%BE&#x2F;index.html">
+<meta property="og:site_name" content="CHD-刘涛">
+<meta property="og:description" content="注意图的各种定义。图分为无向图和有向图。无向图由顶点和边组成。有向图由顶点和弧组成。分为弧头和弧尾。 简单图。完全图。度。入度，出度。网。连通图。强连通图。连通分量。强连通分量。 存储结构：邻接表，邻接矩阵。 邻接矩阵（无向图）：用一个一维数组表示顶点，二维数组表示边。两顶点有边则为1，反之为0。是对称矩阵。邻接矩阵（有向图）：用一个一维数组表示顶点，二维数组表示边。弧头为x，弧尾为y，对应1。非">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-03-09T06:06:35.505Z">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://chdliutao.top/2019/04/03/go%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AE%9E%E7%8E%B0--%E5%9B%BE/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>Go基础数据结构实现--图 | CHD-刘涛</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CHD-刘涛</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://chdliutao.top/2019/04/03/go%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AE%9E%E7%8E%B0--%E5%9B%BE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="刘涛">
+      <meta itemprop="description" content="好好写代码，开发优质产品。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CHD-刘涛">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Go基础数据结构实现--图
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-03 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-03T00:00:00+08:00">2019-04-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-09 14:06:35" itemprop="dateModified" datetime="2020-03-09T14:06:35+08:00">2020-03-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/GO%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">GO编程</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="注意图的各种定义。"><a href="#注意图的各种定义。" class="headerlink" title="注意图的各种定义。"></a>注意图的各种定义。</h3><p>图分为无向图和有向图。无向图由顶点和边组成。有向图由顶点和弧组成。分为弧头和弧尾。</p>
+<p>简单图。完全图。度。入度，出度。网。连通图。强连通图。连通分量。强连通分量。</p>
+<p>存储结构：邻接表，邻接矩阵。</p>
+<p>邻接矩阵（无向图）：用一个一维数组表示顶点，二维数组表示边。两顶点有边则为1，反之为0。是对称矩阵。<br>邻接矩阵（有向图）：用一个一维数组表示顶点，二维数组表示边。弧头为x，弧尾为y，对应1。非对称矩阵。</p>
+<p>邻接矩阵（网）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line">//代码实现</span><br><span class="line">package main</span><br><span class="line"></span><br><span class="line">import &quot;fmt&quot;</span><br><span class="line"></span><br><span class="line">//MGraph 图结构体</span><br><span class="line">type MGraph struct &#123;</span><br><span class="line">	vertex             []int   //用来存放图中顶点的数组</span><br><span class="line">	arc                [][]int //用来存放图中边的数组</span><br><span class="line">	vertextNum, arcNum int     //顶点以及边的个数</span><br><span class="line">	visited            []int   //用来存放深度遍历时已经遍历过的顶点</span><br><span class="line">	Q                  []int   //队列，用于广度优先遍历</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//New 构造函数</span><br><span class="line">/*</span><br><span class="line">构造函数伪代码:</span><br><span class="line">1.确定图的顶点个数和边的个数;</span><br><span class="line">2.输入顶点信息存储在一维数组vertex中;</span><br><span class="line">3.初始化邻接矩阵;</span><br><span class="line">4.依次输入每条边存储在邻接矩阵arc中:</span><br><span class="line">	4.1	输入边依附的两个顶点的编号i,j;</span><br><span class="line">	4.2	将邻接矩阵的第i行第j列的元素值置为1;</span><br><span class="line">	4.3	将邻接矩阵的第j行第i列的元素值置为1;</span><br><span class="line"></span><br><span class="line">*/</span><br><span class="line">func (mgraph *MGraph) New(data []int, n int, e int) &#123;</span><br><span class="line">	mgraph.vertextNum = n</span><br><span class="line">	mgraph.arcNum = e</span><br><span class="line">	mgraph.vertex = make([]int, n)  // n 是顶点数量</span><br><span class="line">	mgraph.visited = make([]int, n) // n 是顶点数量，记录被遍历过的顶点</span><br><span class="line"></span><br><span class="line">	mgraph.arc = make([][]int, n) //	e 是边的数量</span><br><span class="line">	for i := 0; i &lt; n; i++ &#123;</span><br><span class="line">		mgraph.arc[i] = make([]int, n)</span><br><span class="line">	&#125;</span><br><span class="line">	//data是顶点的数组</span><br><span class="line">	for i := 0; i &lt; mgraph.vertextNum; i++ &#123;</span><br><span class="line">		mgraph.vertex[i] = data[i]</span><br><span class="line">	&#125;</span><br><span class="line">	//初始化邻接矩阵</span><br><span class="line">	for i := 0; i &lt; mgraph.vertextNum; i++ &#123;</span><br><span class="line">		for j := 0; j &lt; mgraph.vertextNum; j++ &#123;</span><br><span class="line">			mgraph.arc[i][j] = 0</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	//输入边的关系</span><br><span class="line">	var num1 int</span><br><span class="line">	var num2 int</span><br><span class="line">	for i := 0; i &lt; mgraph.arcNum; i++ &#123;</span><br><span class="line">		fmt.Print(&quot;请输入边的第一个顶点&quot;)</span><br><span class="line">		fmt.Scanln(&amp;num1)</span><br><span class="line">		fmt.Print(&quot;请输入边的第二个顶点&quot;)</span><br><span class="line">		fmt.Scanln(&amp;num2)</span><br><span class="line">		mgraph.arc[num1][num2] = 1</span><br><span class="line">		mgraph.arc[num2][num1] = 1</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//deleteVisited 清除visited中的遍历数据</span><br><span class="line">func (mgraph *MGraph) deleteVisited() &#123;</span><br><span class="line">	for i := 0; i &lt; len(mgraph.visited); i++ &#123;</span><br><span class="line">		mgraph.visited[i] = 0</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//DFSTraverse 图的深度优先遍历</span><br><span class="line">func (mgraph *MGraph) DFSTraverse(v int) &#123;</span><br><span class="line">	fmt.Println(mgraph.vertex[v])</span><br><span class="line">	mgraph.visited[v] = 1</span><br><span class="line">	for j := 0; j &lt; mgraph.vertextNum; j++ &#123;</span><br><span class="line">		if mgraph.arc[v][j] == 1 &amp;&amp; mgraph.visited[j] == 0 &#123;</span><br><span class="line">			mgraph.DFSTraverse(j)</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//BFSTraverse 图的广度优先遍历</span><br><span class="line">func (mgraph *MGraph) BFSTraverse(v int) &#123;</span><br><span class="line">	fmt.Println(mgraph.vertex[v])</span><br><span class="line">	mgraph.visited[v] = 1</span><br><span class="line">	mgraph.Q = append(mgraph.Q, v) //被访问节点入队列</span><br><span class="line">	for len(mgraph.Q) &gt; 0 &#123;</span><br><span class="line">		v = mgraph.Q[0]</span><br><span class="line">		mgraph.Q = mgraph.Q[1:] //模拟出队列操作</span><br><span class="line">		for j := 0; j &lt; mgraph.vertextNum; j++ &#123;</span><br><span class="line">			if mgraph.arc[v][j] == 1 &amp;&amp; mgraph.visited[j] == 0 &#123;</span><br><span class="line">				fmt.Println(mgraph.vertex[j])</span><br><span class="line">				mgraph.visited[j] = 1</span><br><span class="line">				mgraph.Q = append(mgraph.Q, j)</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(&quot;图的广度优先遍历结束&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	mgraph := new(MGraph)</span><br><span class="line">	mgraph.New([]int&#123;0, 1, 2, 3&#125;, 4, 5)</span><br><span class="line">	mgraph.BFSTraverse(1)</span><br><span class="line">	mgraph.deleteVisited()</span><br><span class="line">	mgraph.DFSTraverse(1)</span><br><span class="line">	mgraph.deleteVisited()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>邻接表（无向图）：顶点用一维数组表示，</p>
+<p>邻接表（有向图）：只能表示出度或者入度。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">	&quot;strconv&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">//采用邻接表来存储图</span><br><span class="line"></span><br><span class="line">//ArcNode 边表节点</span><br><span class="line">type ArcNode struct &#123;</span><br><span class="line">	adjvex int</span><br><span class="line">	next   *ArcNode</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//VerTexNode 定义顶点表节点</span><br><span class="line">type VerTexNode struct &#123;</span><br><span class="line">	vertex    int</span><br><span class="line">	firstedge *ArcNode</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//ALGraph 结构体定义</span><br><span class="line">type ALGraph struct &#123;</span><br><span class="line">	adjlist    []VerTexNode //存放顶点表的数组</span><br><span class="line">	vertextNum int          //图的顶点的数量</span><br><span class="line">	arcNum     int          //图的边的数量</span><br><span class="line">	visited    []int        //遍历时记录顶点是否被遍历过</span><br><span class="line">	Q          []int        //队列，用于广度优先遍历</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//Create 无向图邻接表构造函数！！</span><br><span class="line">func (algraph *ALGraph) Create(data []int, n int, e int) &#123;</span><br><span class="line">	algraph.adjlist = make([]VerTexNode, n)</span><br><span class="line">	algraph.visited = make([]int, n)</span><br><span class="line">	algraph.arcNum = e</span><br><span class="line">	algraph.vertextNum = n</span><br><span class="line">	for i := 0; i &lt; n; i++ &#123;</span><br><span class="line">		algraph.adjlist[i].vertex = i</span><br><span class="line">		algraph.adjlist[i].firstedge = nil</span><br><span class="line">	&#125;</span><br><span class="line">	for i := 0; i &lt; e; i++ &#123;</span><br><span class="line">		num1, num2 := 0, 0</span><br><span class="line">		fmt.Println(&quot;请输入第&quot; + strconv.Itoa(i) + &quot;条边的起点&quot;)</span><br><span class="line">		fmt.Scanln(&amp;num1)</span><br><span class="line">		fmt.Println(&quot;请输入第&quot; + strconv.Itoa(i) + &quot;条边的终点&quot;)</span><br><span class="line">		fmt.Scanln(&amp;num2)</span><br><span class="line">		temp := new(ArcNode)</span><br><span class="line">		temp.adjvex = num2</span><br><span class="line">		temp.next = algraph.adjlist[num1].firstedge</span><br><span class="line">		algraph.adjlist[num1].firstedge = temp</span><br><span class="line"></span><br><span class="line">		temp1 := new(ArcNode)</span><br><span class="line">		temp1.adjvex = num1</span><br><span class="line">		temp1.next = algraph.adjlist[num2].firstedge</span><br><span class="line">		algraph.adjlist[num2].firstedge = temp1</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//New 有向图邻接表构造函数！！！！！</span><br><span class="line">func (algraph *ALGraph) New(data []int, n int, e int) &#123;</span><br><span class="line">	algraph.adjlist = make([]VerTexNode, n)</span><br><span class="line">	algraph.visited = make([]int, n)</span><br><span class="line">	algraph.arcNum = e</span><br><span class="line">	algraph.vertextNum = n</span><br><span class="line">	for i := 0; i &lt; n; i++ &#123;</span><br><span class="line">		algraph.adjlist[i].vertex = i</span><br><span class="line">		algraph.adjlist[i].firstedge = nil</span><br><span class="line">	&#125;</span><br><span class="line">	for i := 0; i &lt; e; i++ &#123;</span><br><span class="line">		num1, num2 := 0, 0</span><br><span class="line">		fmt.Println(&quot;请输入第&quot; + strconv.Itoa(i) + &quot;条边的起点&quot;)</span><br><span class="line">		fmt.Scanln(&amp;num1)</span><br><span class="line">		fmt.Println(&quot;请输入第&quot; + strconv.Itoa(i) + &quot;条边的终点&quot;)</span><br><span class="line">		fmt.Scanln(&amp;num2)</span><br><span class="line">		temp := new(ArcNode)</span><br><span class="line">		temp.adjvex = num2</span><br><span class="line">		temp.next = algraph.adjlist[num1].firstedge</span><br><span class="line">		algraph.adjlist[num1].firstedge = temp</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//deleteVisited 清空visited数组</span><br><span class="line">func (algraph *ALGraph) deleteVisited() &#123;</span><br><span class="line">	for i := 0; i &lt; len(algraph.visited); i++ &#123;</span><br><span class="line">		algraph.visited[i] = 0</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//DFSTraverse 深度优先遍历</span><br><span class="line">func (algraph *ALGraph) DFSTraverse(v int) &#123;</span><br><span class="line">	fmt.Println(algraph.adjlist[v].vertex)</span><br><span class="line">	algraph.visited[v] = 1</span><br><span class="line">	p := algraph.adjlist[v].firstedge</span><br><span class="line">	for p != nil &#123;</span><br><span class="line">		j := p.adjvex</span><br><span class="line">		if algraph.visited[j] == 0 &#123;</span><br><span class="line">			algraph.DFSTraverse(j)</span><br><span class="line">		&#125;</span><br><span class="line">		p = p.next</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//BFSTraverse 广度优先遍历</span><br><span class="line">func (algraph *ALGraph) BFSTraverse(v int) &#123;</span><br><span class="line">	fmt.Println(algraph.adjlist[v].vertex)</span><br><span class="line">	algraph.visited[v] = 1</span><br><span class="line">	algraph.Q = append(algraph.Q, v) //访问过的顶点入队列</span><br><span class="line">	for len(algraph.Q) &gt; 0 &#123;</span><br><span class="line">		v = algraph.Q[0]</span><br><span class="line">		algraph.Q = algraph.Q[1:]</span><br><span class="line"></span><br><span class="line">		p := algraph.adjlist[v].firstedge</span><br><span class="line">		for p != nil &#123;</span><br><span class="line">			j := p.adjvex</span><br><span class="line">			if algraph.visited[j] == 0 &#123;</span><br><span class="line">				fmt.Println(algraph.adjlist[j].vertex)</span><br><span class="line">				algraph.visited[j] = 1</span><br><span class="line">				algraph.Q = append(algraph.Q, j)</span><br><span class="line">			&#125;</span><br><span class="line">			p = p.next</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(&quot;广度优先遍历结束&quot;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	mygraph := new(ALGraph)</span><br><span class="line">	mygraph.Create([]int&#123;0, 1, 2, 3, 4&#125;, 5, 7)</span><br><span class="line">	mygraph.BFSTraverse(1)</span><br><span class="line">	mygraph.deleteVisited()</span><br><span class="line">	mygraph.DFSTraverse(1)</span><br><span class="line">	mygraph.deleteVisited()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/GO/" rel="tag"># GO</a>
+              <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" rel="tag"># 编程语言</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/03/25/go%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AE%9E%E7%8E%B0--%E9%93%BE%E8%A1%A8/" rel="prev" title="Go基础数据结构实现--链表">
+      <i class="fa fa-chevron-left"></i> Go基础数据结构实现--链表
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/04/18/go%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AE%9E%E7%8E%B0--%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="next" title="Go基础数据结构实现--二叉树">
+      Go基础数据结构实现--二叉树 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#注意图的各种定义。"><span class="nav-number">1.</span> <span class="nav-text">注意图的各种定义。</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">刘涛</p>
+  <div class="site-description" itemprop="description">好好写代码，开发优质产品。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘涛</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.0.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.2
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
