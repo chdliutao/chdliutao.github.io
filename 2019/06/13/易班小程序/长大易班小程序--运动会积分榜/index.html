@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chdliutao.top","root":"/","scheme":"Pisces","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="长大易班小程序–运动会积分榜需求：小程序运动会积分榜应用分为三个功能模块：赛事查看，积分排名，学院热度排名 数据表结构设计：1234567表1名：fa_sports_date描述：存放运动赛程字段：`ID`			int		自增ID`sports_name`	varchar	项目名称`sports_group`	varchar	项目组别`sports_time`	int		项目开始时间  12345">
+<meta name="keywords" content="长大易班小程序,应用程序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="长大易班小程序--运动会积分榜">
+<meta property="og:url" content="http:&#x2F;&#x2F;chdliutao.top&#x2F;2019&#x2F;06&#x2F;13&#x2F;%E6%98%93%E7%8F%AD%E5%B0%8F%E7%A8%8B%E5%BA%8F&#x2F;%E9%95%BF%E5%A4%A7%E6%98%93%E7%8F%AD%E5%B0%8F%E7%A8%8B%E5%BA%8F--%E8%BF%90%E5%8A%A8%E4%BC%9A%E7%A7%AF%E5%88%86%E6%A6%9C&#x2F;index.html">
+<meta property="og:site_name" content="CHD-刘涛">
+<meta property="og:description" content="长大易班小程序–运动会积分榜需求：小程序运动会积分榜应用分为三个功能模块：赛事查看，积分排名，学院热度排名 数据表结构设计：1234567表1名：fa_sports_date描述：存放运动赛程字段：`ID`			int		自增ID`sports_name`	varchar	项目名称`sports_group`	varchar	项目组别`sports_time`	int		项目开始时间  12345">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-07-02T07:47:00.531Z">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://chdliutao.top/2019/06/13/%E6%98%93%E7%8F%AD%E5%B0%8F%E7%A8%8B%E5%BA%8F/%E9%95%BF%E5%A4%A7%E6%98%93%E7%8F%AD%E5%B0%8F%E7%A8%8B%E5%BA%8F--%E8%BF%90%E5%8A%A8%E4%BC%9A%E7%A7%AF%E5%88%86%E6%A6%9C/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>长大易班小程序--运动会积分榜 | CHD-刘涛</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CHD-刘涛</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://chdliutao.top/2019/06/13/%E6%98%93%E7%8F%AD%E5%B0%8F%E7%A8%8B%E5%BA%8F/%E9%95%BF%E5%A4%A7%E6%98%93%E7%8F%AD%E5%B0%8F%E7%A8%8B%E5%BA%8F--%E8%BF%90%E5%8A%A8%E4%BC%9A%E7%A7%AF%E5%88%86%E6%A6%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="刘涛">
+      <meta itemprop="description" content="好好写代码，开发优质产品。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CHD-刘涛">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          长大易班小程序--运动会积分榜
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-06-13 00:00:00" itemprop="dateCreated datePublished" datetime="2019-06-13T00:00:00+08:00">2019-06-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-02 15:47:00" itemprop="dateModified" datetime="2020-07-02T15:47:00+08:00">2020-07-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%95%BF%E5%A4%A7%E6%98%93%E7%8F%AD%E5%B0%8F%E7%A8%8B%E5%BA%8F/" itemprop="url" rel="index"><span itemprop="name">长大易班小程序</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="长大易班小程序–运动会积分榜"><a href="#长大易班小程序–运动会积分榜" class="headerlink" title="长大易班小程序–运动会积分榜"></a>长大易班小程序–运动会积分榜</h2><h3 id="需求："><a href="#需求：" class="headerlink" title="需求："></a>需求：</h3><p>小程序运动会积分榜应用分为三个功能模块：赛事查看，积分排名，学院热度排名</p>
+<h3 id="数据表结构设计："><a href="#数据表结构设计：" class="headerlink" title="数据表结构设计："></a>数据表结构设计：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">表1名：fa_sports_date</span><br><span class="line">描述：存放运动赛程</span><br><span class="line">字段：</span><br><span class="line">`ID`			int		自增ID</span><br><span class="line">`sports_name`	varchar	项目名称</span><br><span class="line">`sports_group`	varchar	项目组别</span><br><span class="line">`sports_time`	int		项目开始时间</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">表2名: fa_sports_score</span><br><span class="line">描述: 学院得分记录表</span><br><span class="line">字段：</span><br><span class="line">`ID`			int		自增ID</span><br><span class="line">`YXDM`			varchar	院系代码</span><br><span class="line">`total_score`	float	学院总得分数</span><br><span class="line">`total_steps`	int		学院总捐赠微信步数</span><br><span class="line">`total_person`	int		学院总捐赠人数</span><br><span class="line">`average_steps`	float	学院人均捐赠微信步数</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">表3名: fa_sports_score_detail</span><br><span class="line">描述: 学院得分详情记录表</span><br><span class="line">字段:</span><br><span class="line">`ID`		int		自增ID</span><br><span class="line">`event_id`	int		项目ID</span><br><span class="line">`YXDM`		varchar	院系代码</span><br><span class="line">`ranking`	varchar	学院排名</span><br><span class="line">`score`		varchar	学院得分</span><br><span class="line">`remark`	text	特殊情况标记</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">表4名：fa_sports_steps_detail</span><br><span class="line">描述：捐赠步数记录详情</span><br><span class="line">字段：</span><br><span class="line">`ID`		int		自增ID</span><br><span class="line">`YXDM`		varchar	院系代码</span><br><span class="line">`stu_id`	varchar	学号</span><br><span class="line">`open_id`	varchar 微信用户的openid	</span><br><span class="line">`steps`		int		捐献步数</span><br><span class="line">`time`		int		捐献时间</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">表5名：fa_sports_type</span><br><span class="line">描述：所有比赛项目记录表</span><br><span class="line">字段：</span><br><span class="line">`ID`		int		自增ID</span><br><span class="line">`type_id`	int		项目类型ID</span><br><span class="line">`type_name`	varchar	项目类型名称（适当冗余，便于展示，分为田径项目，《国家学生体质健康标准》测试项目，趣味项目）</span><br><span class="line">`event_name`varchar	项目名称</span><br></pre></td></tr></table></figure>
+
+<h3 id="接口设计："><a href="#接口设计：" class="headerlink" title="接口设计："></a>接口设计：</h3><h5 id="初始化API-api-miniapp-sports-index"><a href="#初始化API-api-miniapp-sports-index" class="headerlink" title="初始化API : api/miniapp/sports/index"></a>初始化<code>API</code> : <code>api/miniapp/sports/index</code></h5><p>返回数据有两大部分:</p>
+<ol>
+<li>热度：包含所在学院数据（院系名称、共计捐赠步数、今日捐赠步数、我的捐赠步数、累计捐赠人次、热度）、排名数据（院徽url、院系名称、累计捐献人次、累计捐赠步数、热度、排名）。</li>
+<li>积分榜:包含当前学院积分总数据（院系名称、名次、总积分）、更新时间。</li>
+</ol>
+<p>返回数据示例如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;score&quot;: &#123;</span><br><span class="line">        &quot;update_time&quot;: &quot;更新时间,格式如2019-04-17 19:00&quot;,</span><br><span class="line">        &quot;list&quot;: [</span><br><span class="line">            &#123;</span><br><span class="line">                &quot;college_id&quot;: &quot;学院ID&quot;,</span><br><span class="line">                &quot;college_name&quot;: &quot;学院名称&quot;,</span><br><span class="line">                &quot;ranking&quot;: （int）排名,</span><br><span class="line">                &quot;total&quot;: （int）总分数</span><br><span class="line">            &#125;,</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    &quot;hot&quot;: &#123;</span><br><span class="line">        &quot;list&quot;: [</span><br><span class="line">            &#123;</span><br><span class="line">                &quot;college_id&quot;: &quot;学院ID&quot;,</span><br><span class="line">                &quot;college_name&quot;: &quot;学院名称&quot;,</span><br><span class="line">                &quot;college_logo_url&quot;: &quot;https://...&quot;,</span><br><span class="line">                &quot;total_donate_person&quot;: （int）捐赠人数,</span><br><span class="line">                &quot;total_donate_steps&quot;: （int）总捐赠步数,</span><br><span class="line">                &quot;heat&quot;: （int）热度,</span><br><span class="line">                &quot;ranking&quot;: （int）排名,</span><br><span class="line">            &#125;</span><br><span class="line">        ],</span><br><span class="line">        &quot;me&quot;: &#123;</span><br><span class="line">            &quot;college_id&quot;: &quot;学院ID&quot;,</span><br><span class="line">            &quot;college_name&quot;:&quot;学院名称&quot;,</span><br><span class="line">            &quot;college_total_steps&quot;:&quot;学院捐献步数综合总数&quot;,</span><br><span class="line">            &quot;my_heat&quot;:&quot;学院热度&quot;,</span><br><span class="line">            &quot;my_total_donate_person&quot;:&quot;学院累计捐赠人数&quot;,</span><br><span class="line">            &quot;today_grow_steps&quot;: &quot;今日学院合集增长步数&quot;,</span><br><span class="line">            &quot;my_total_steps&quot;: &quot;本人累计捐献步数&quot;,</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="学院详细积分API-api-miniapp-sports-detail"><a href="#学院详细积分API-api-miniapp-sports-detail" class="headerlink" title="学院详细积分API:  api/miniapp/sports/detail"></a>学院详细积分<code>API</code>:  <code>api/miniapp/sports/detail</code></h5><p>返回<code>JSON</code>结构为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">	// 存放田径项目得分细则</span><br><span class="line">	[</span><br><span class="line">		&#123;</span><br><span class="line">            &quot;id&quot;: 0,</span><br><span class="line">            &quot;event_name&quot;: &quot;项目名称&quot;,</span><br><span class="line">            &quot;ranking&quot;: (int) 排名,</span><br><span class="line">            &quot;score&quot;: (int) 得分,</span><br><span class="line">            &quot;remark&quot;: &quot;备注&quot;</span><br><span class="line">		&#125;,</span><br><span class="line">		&#123;...&#125;</span><br><span class="line">	],</span><br><span class="line">	// 存放体测项目得分细则，</span><br><span class="line">	[</span><br><span class="line">		&#123;</span><br><span class="line">            &quot;id&quot;: 1,</span><br><span class="line">            &quot;event_name&quot;: &quot;项目名称&quot;,</span><br><span class="line">         	&quot;ranking&quot;: (int) 排名,</span><br><span class="line">            &quot;score&quot;: (int) 得分,</span><br><span class="line">            &quot;remark&quot;: &quot;备注&quot;,</span><br><span class="line">		&#125;,</span><br><span class="line">		&#123;...&#125;</span><br><span class="line">	],</span><br><span class="line">	// 存放趣味项目得分细则</span><br><span class="line">	[],</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h5 id="赛程API-api-miniapp-sports-schedule"><a href="#赛程API-api-miniapp-sports-schedule" class="headerlink" title="赛程API: api/miniapp/sports/schedule"></a>赛程<code>API</code>: <code>api/miniapp/sports/schedule</code></h5><p>返回<code>JSON</code>结构为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	&quot;schedule&quot;	:	[</span><br><span class="line">		&#123;</span><br><span class="line">        &apos;date&apos;: &apos;04-17&apos;,</span><br><span class="line">        &apos;list&apos;: [</span><br><span class="line">            &#123; &apos;time&apos;: &apos;14:30&apos;, &apos;type&apos;: &apos;男子组&apos;, &apos;event&apos;: &apos;30*60米往返穿越栏架接力（决赛）&apos; &#125;,</span><br><span class="line">            &#123; &apos;time&apos;: &apos;15:05&apos;, &apos;type&apos;: &apos;女子组&apos;, &apos;event&apos;: &apos;30*60米往返穿越栏架接力（决赛）&apos; &#125;,</span><br><span class="line">            &#123; &apos;time&apos;: &apos;14:30&apos;, &apos;type&apos;: &apos;混合组&apos;, &apos;event&apos;: &apos;30*60米往返穿越栏架接力（决赛）&apos; &#125;</span><br><span class="line">        ]&#125;,</span><br><span class="line">        &#123;</span><br><span class="line">        &apos;date&apos;: &apos;04-18&apos;,</span><br><span class="line">        &apos;list&apos;: [</span><br><span class="line">            &#123; &apos;time&apos;: &apos;14:30&apos;, &apos;type&apos;: &apos;男子组&apos;, &apos;event&apos;: &apos;30*60米往返穿越栏架接力（决赛）&apos; &#125;,</span><br><span class="line">            &#123; &apos;time&apos;: &apos;15:05&apos;, &apos;type&apos;: &apos;女子组&apos;, &apos;event&apos;: &apos;30*60米往返穿越栏架接力（决赛）&apos; &#125;,</span><br><span class="line">            &#123; &apos;time&apos;: &apos;14:30&apos;, &apos;type&apos;: &apos;混合组&apos;, &apos;event&apos;: &apos;30*60米往返穿越栏架接力（决赛）&apos; &#125;</span><br><span class="line">        ]&#125;,</span><br><span class="line">        &#123;</span><br><span class="line">        &apos;date&apos;: &apos;04-19&apos;,</span><br><span class="line">        &apos;list&apos;: [</span><br><span class="line">            &#123; &apos;time&apos;: &apos;14:30&apos;, &apos;type&apos;: &apos;男子组&apos;, &apos;event&apos;: &apos;30*60米往返穿越栏架接力（决赛）&apos; &#125;,</span><br><span class="line">            &#123; &apos;time&apos;: &apos;15:05&apos;, &apos;type&apos;: &apos;女子组&apos;, &apos;event&apos;: &apos;30*60米往返穿越栏架接力（决赛）&apos; &#125;,</span><br><span class="line">            &#123; &apos;time&apos;: &apos;14:30&apos;, &apos;type&apos;: &apos;混合组&apos;, &apos;event&apos;: &apos;30*60米往返穿越栏架接力（决赛）&apos; &#125;</span><br><span class="line">        ]&#125;,</span><br><span class="line">	]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="获取运动步数API：api-sports-steps"><a href="#获取运动步数API：api-sports-steps" class="headerlink" title="获取运动步数API：api/sports/steps"></a>获取运动步数<code>API</code>：<code>api/sports/steps</code></h5><p>返回<code>JSON</code>结构为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;status&quot;:200,</span><br><span class="line">    &quot;msg&quot;:&quot;success&quot;</span><br><span class="line">    &quot;data&quot;:&#123;</span><br><span class="line">        &quot;steps&quot;: 1000,		//返回数值</span><br><span class="line">        &quot;heat_grow&quot;: 12.1	//贡献热度</span><br><span class="line">        &quot;score_grow&quot;: 0,	//如果启用积分，则返回增长积分,否则返回0</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="捐献步数API-api-sports-donate"><a href="#捐献步数API-api-sports-donate" class="headerlink" title="捐献步数API: api/sports/donate"></a>捐献步数<code>API</code>: <code>api/sports/donate</code></h5><p>返回<code>JSON</code>结构为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">捐献成功:</span><br><span class="line">&#123;</span><br><span class="line">    &quot;status&quot;:200,</span><br><span class="line">    &quot;msg&quot;:&quot;success&quot;</span><br><span class="line">    &quot;data&quot;:&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">捐献失败:</span><br><span class="line">&#123;</span><br><span class="line">    &quot;status&quot;:500,</span><br><span class="line">    &quot;msg&quot;:&quot;errormsg&quot;</span><br><span class="line">    &quot;data&quot;:&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="热度计算规则："><a href="#热度计算规则：" class="headerlink" title="热度计算规则："></a>热度计算规则：</h3><p>每日步数过万方可进行捐献。</p>
+<p>依据每个学院的平均捐献步数排名，通过计算映射至<code>60°-100°</code>区间。</p>
+<h3 id="应用成果："><a href="#应用成果：" class="headerlink" title="应用成果："></a>应用成果：</h3><p>参与每日捐赠步数人数：1400人</p>
+<p>记录比赛结果：1000余条</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%95%BF%E5%A4%A7%E6%98%93%E7%8F%AD%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag"># 长大易班小程序</a>
+              <a href="/tags/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/" rel="tag"># 应用程序</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/06/09/Go%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/Go%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0%E2%80%94%E6%95%B0%E7%BB%84/" rel="prev" title="Go知识复习-数组">
+      <i class="fa fa-chevron-left"></i> Go知识复习-数组
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/06/13/%E6%98%93%E7%8F%AD%E5%B0%8F%E7%A8%8B%E5%BA%8F/%E9%95%BF%E5%A4%A7%E6%98%93%E7%8F%AD%E5%B0%8F%E7%A8%8B%E5%BA%8F--%E5%90%8E%E5%8B%A4%E6%8A%A5%E4%BF%AE/" rel="next" title="长大易班小程序--后勤报修">
+      长大易班小程序--后勤报修 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#长大易班小程序–运动会积分榜"><span class="nav-number">1.</span> <span class="nav-text">长大易班小程序–运动会积分榜</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#需求："><span class="nav-number">1.1.</span> <span class="nav-text">需求：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据表结构设计："><span class="nav-number">1.2.</span> <span class="nav-text">数据表结构设计：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口设计："><span class="nav-number">1.3.</span> <span class="nav-text">接口设计：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#初始化API-api-miniapp-sports-index"><span class="nav-number">1.3.0.1.</span> <span class="nav-text">初始化API : api/miniapp/sports/index</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#学院详细积分API-api-miniapp-sports-detail"><span class="nav-number">1.3.0.2.</span> <span class="nav-text">学院详细积分API:  api/miniapp/sports/detail</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#赛程API-api-miniapp-sports-schedule"><span class="nav-number">1.3.0.3.</span> <span class="nav-text">赛程API: api/miniapp/sports/schedule</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#获取运动步数API：api-sports-steps"><span class="nav-number">1.3.0.4.</span> <span class="nav-text">获取运动步数API：api/sports/steps</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#捐献步数API-api-sports-donate"><span class="nav-number">1.3.0.5.</span> <span class="nav-text">捐献步数API: api/sports/donate</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#热度计算规则："><span class="nav-number">1.4.</span> <span class="nav-text">热度计算规则：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用成果："><span class="nav-number">1.5.</span> <span class="nav-text">应用成果：</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">刘涛</p>
+  <div class="site-description" itemprop="description">好好写代码，开发优质产品。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备19032471号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">2019-2020 chdliutao.top 版权所有</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

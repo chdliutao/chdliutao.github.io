@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chdliutao.top","root":"/","scheme":"Pisces","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="fmt.Printf使用简介fmt 包实现了格式化 I&#x2F;O 函数，类似于 C 的 printf 和 scanf。格式“占位符”衍生自 C，但比 C 更简单。 打印占位符： 一般%v    相应值的默认格式。在打印结构体时，“加号”标记（%+v）会添加字段名 %#v    相应值的 Go 语法表示 %T    相应值的类型的 Go 语法表示 %%    字面上的百分号，并非值的占位符 布尔%t">
+<meta name="keywords" content="Go,编程语言,基础知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go知识复习-printf的使用">
+<meta property="og:url" content="http:&#x2F;&#x2F;chdliutao.top&#x2F;2019&#x2F;04&#x2F;03&#x2F;Go%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0&#x2F;Go%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0%E2%80%94printf%E4%BD%BF%E7%94%A8&#x2F;index.html">
+<meta property="og:site_name" content="CHD-刘涛">
+<meta property="og:description" content="fmt.Printf使用简介fmt 包实现了格式化 I&#x2F;O 函数，类似于 C 的 printf 和 scanf。格式“占位符”衍生自 C，但比 C 更简单。 打印占位符： 一般%v    相应值的默认格式。在打印结构体时，“加号”标记（%+v）会添加字段名 %#v    相应值的 Go 语法表示 %T    相应值的类型的 Go 语法表示 %%    字面上的百分号，并非值的占位符 布尔%t">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-07-02T07:40:56.648Z">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://chdliutao.top/2019/04/03/Go%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/Go%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0%E2%80%94printf%E4%BD%BF%E7%94%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>Go知识复习-printf的使用 | CHD-刘涛</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CHD-刘涛</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://chdliutao.top/2019/04/03/Go%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/Go%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0%E2%80%94printf%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="刘涛">
+      <meta itemprop="description" content="好好写代码，开发优质产品。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CHD-刘涛">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Go知识复习-printf的使用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-03 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-03T00:00:00+08:00">2019-04-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-02 15:40:56" itemprop="dateModified" datetime="2020-07-02T15:40:56+08:00">2020-07-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Go编程</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="fmt-Printf使用"><a href="#fmt-Printf使用" class="headerlink" title="fmt.Printf使用"></a>fmt.Printf使用</h1><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>fmt 包实现了格式化 I/O 函数，类似于 C 的 printf 和 scanf。格式“占位符”衍生自 C，但比 C 更简单。</p>
+<h3 id="打印"><a href="#打印" class="headerlink" title="打印"></a>打印</h3><p>占位符：</p>
+<h4 id="一般"><a href="#一般" class="headerlink" title="一般"></a>一般</h4><p><code>%v</code>    相应值的默认格式。在打印结构体时，“加号”标记（%+v）会添加字段名</p>
+<p><code>%#v</code>    相应值的 Go 语法表示</p>
+<p><code>%T</code>    相应值的类型的 Go 语法表示</p>
+<p><code>%%</code>    字面上的百分号，并非值的占位符</p>
+<h4 id="布尔"><a href="#布尔" class="headerlink" title="布尔"></a>布尔</h4><p><code>%t</code>    单词 true 或 false。</p>
+<h4 id="整数"><a href="#整数" class="headerlink" title="整数"></a>整数</h4><p><code>%b</code>    二进制表示</p>
+<p><code>%c</code>    相应<code>Unicode</code> 码点所表示的字符</p>
+<p><code>%d</code>    十进制表示</p>
+<p><code>%o</code>    八进制表示</p>
+<p><code>%q</code>    单引号围绕的字符字面值，由 Go 语法安全地转义</p>
+<p><code>%x</code>    十六进制表示，字母形式为小写 a-f</p>
+<p><code>%X</code>    十六进制表示，字母形式为大写 A-F</p>
+<p><code>%U</code>    <code>Unicode</code>格式：U+1234，等同于 “U+%04X”</p>
+<h4 id="浮点数及其复合构成"><a href="#浮点数及其复合构成" class="headerlink" title="浮点数及其复合构成"></a>浮点数及其复合构成</h4><p><code>%b</code>    无小数部分的，指数为二的幂的科学计数法，与 strconv.FormatFloat 的 ‘b’ 转换格式一致。例如 -123456p-78</p>
+<p><code>%e</code>    科学计数法，例如 -1234.456e+78</p>
+<p><code>%E</code>    科学计数法，例如 -1234.456E+78</p>
+<p><code>%f</code>    有小数点而无指数，例如 123.456</p>
+<p><code>%g</code>    根据情况选择 %e 或 %f 以产生更紧凑的（无末尾的 0）输出</p>
+<p><code>%G</code>    根据情况选择 %E 或 %f 以产生更紧凑的（无末尾的 0）输出</p>
+<h4 id="字符串与字节切片"><a href="#字符串与字节切片" class="headerlink" title="字符串与字节切片"></a>字符串与字节切片</h4><p><code>%s</code>    字符串或切片的无解译字节</p>
+<p><code>%q</code>    双引号围绕的字符串，由 Go 语法安全地转义</p>
+<p><code>%x</code>    十六进制，小写字母，每字节两个字符</p>
+<p><code>%X</code>    十六进制，大写字母，每字节两个字符</p>
+<h4 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h4><p><code>%p</code>    十六进制表示，前缀 0x</p>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>这里没有 ‘u’ 标记。若整数为无符号类型，他们就会被打印成无符号的。类似地， 这里也不需要指定操作数的大小（int8，int64）。</p>
+<p>宽度与精度的控制格式以 Unicode 码点为单位。（这点与 C 的 printf 不同， 它以字节数为单位。）二者或其中之一均可用字符 ‘*’ 表示， 此时它们的值会从下一个操作数中获取，该操作数的类型必须为 int。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 宽度与精度的控制以 Unicode 码点为单位</span></span><br><span class="line">fmt.Printf(<span class="string">""</span>%<span class="number">8</span>s<span class="string">"\n"</span>, “<span class="number">123456</span>”) <span class="comment">// 最大长度为 8</span></span><br><span class="line"><span class="comment">// " 123456"</span></span><br><span class="line">fmt.Printf(<span class="string">""</span>%<span class="number">8</span>s<span class="string">"\n"</span>, “你好”) <span class="comment">// 最大长度为 8</span></span><br><span class="line"><span class="comment">// " 你好"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 宽度与精度均可用字符 '’ 表示</span></span><br><span class="line">fmt.Printf(<span class="string">"%0.*f \n"</span>, <span class="number">8</span>, <span class="number">3</span>, <span class="number">13.25</span>) <span class="comment">// 总长度 8，小数位数 3</span></span><br><span class="line">fmt.Printf(<span class="string">"%08.3f \n"</span>, <span class="number">13.25</span>) <span class="comment">// 总长度 8，小数位数 3</span></span><br><span class="line"><span class="comment">// 0013.250</span></span><br><span class="line">fmt.Printf(<span class="string">"%.3f \n"</span>, <span class="number">12.345678</span>) <span class="comment">// 格式化输出浮点数据，总长度为可变，小数点为3位</span></span><br><span class="line"><span class="comment">// 12.346</span></span><br></pre></td></tr></table></figure>
+
+<p>对数值而言，宽度为该数值占用区域的最小宽度；精度为小数点之后的位数。 但对于 %g/%G 而言，精度为所有数字的总数。例如，对于 123.45，格式 %6.2f 会打印 123.45，而 %.4g 会打印 123.5。%e 和 %f 的默认精度为 6；但对于 %g 而言，它的默认精度为确定该值所必须的最小位数。</p>
+<p>对大多数值而言，宽度为输出的最小字符数，如果必要的话会为已格式化的形式填充空格。对字符串而言，精度为输出的最大字符数，如果必要的话会直接截断。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 宽度与精度标记字符串</span></span><br><span class="line">fmt.Printf(<span class="string">"%8q"</span>, “ABC”) <span class="comment">// 最小长度为 8（包括 %q 的引号字符）</span></span><br><span class="line"><span class="comment">// “ABC”</span></span><br><span class="line">fmt.Printf(<span class="string">"%.8q"</span>, “<span class="number">1234567890</span>”) <span class="comment">// 最大长度为 8（不包括 %q 的引号字符）</span></span><br><span class="line"><span class="comment">// “12345678”</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="扫描"><a href="#扫描" class="headerlink" title="扫描"></a>扫描</h3><p>一组类似的函数通过扫描已格式化的文本来产生值。Scan、Scanf 和 Scanln 从 os.Stdin 中读取；Fscan、Fscanf 和 Fscanln 从指定的 io.Reader 中读取； Sscan、Sscanf 和 Sscanln 从实参字符串中读取。Scanln、Fscanln 和 Sscanln 在换行符处停止扫描，且需要条目紧随换行符之后；Scanf、Fscanf 和 Sscanf 需要输入换行符来匹配格式中的换行符；其它函数则将换行符视为空格。</p>
+<p>Scanf、Fscanf 和 Sscanf 根据格式字符串解析实参，类似于 Printf。例如，%x 会将一个整数扫描为十六进制数，而 %v 则会扫描该值的默认表现格式。</p>
+<p>格式化行为类似于 Printf，但也有如下例外：</p>
+<p>%p 没有实现<br>　　%T 没有实现<br>　　%e %E %f %F %g %G 都完全等价，且可扫描任何浮点数或复合数值<br>　　%s 和 %v 在扫描字符串时会将其中的空格作为分隔符<br>　　标记 # 和 + 没有实现</p>
+<p>在使用 %v 占位符扫描整数时，可接受友好的进制前缀 0（八进制）和 0x（十六进制）。</p>
+<p>宽度被解释为输入的文本（%5s 意为最多从输入中读取 5 个符文来扫描成字符串），而扫描函数则没有精度的语法（没有 %5.2f，只有 %5f）。</p>
+<p>当以某种格式进行扫描时，无论在格式中还是在输入中，所有非空的连续空白字符 （除换行符外）都等价于单个空格。由于这种限制，格式字符串文本必须匹配输入的文本，如果不匹配，扫描过程就会停止，并返回已扫描的实参数。</p>
+<p>在所有的扫描参数中，若一个操作数实现了 Scan 方法（即它实现了 Scanner 接口），该操作数将使用该方法扫描其文本。此外，若已扫描的实参数少于所提供的实参数，就会返回一个错误。</p>
+<p>所有需要被扫描的实参都必须是基本类型或实现了 Scanner 接口的类型。</p>
+<p>注意：Fscan 等函数会从输入中多读取一个字符（符文），因此，如果循环调用扫描函数，可能会跳过输入中的某些数据。一般只有在输入的数据中没有空白符时该问题才会出现。若提供给 Fscan 的读取器实现了 ReadRune，就会用该方法读取字符。若此读取器还实现了 UnreadRune 方法，就会用该方法保存字符，而连续的调用将不会丢失数据。若要为没有 ReadRune 和 UnreadRune 方法的读取器加上这些功能，需使用 bufio.NewReader。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Go/" rel="tag"># Go</a>
+              <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" rel="tag"># 编程语言</a>
+              <a href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag"># 基础知识</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/04/03/Go%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/Go%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0%E2%80%94%E5%87%BD%E6%95%B0/" rel="prev" title="Go知识复习-函数">
+      <i class="fa fa-chevron-left"></i> Go知识复习-函数
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/04/03/Go%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/Go%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0%E2%80%94map/" rel="next" title="Go知识复习-map">
+      Go知识复习-map <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#fmt-Printf使用"><span class="nav-number">1.</span> <span class="nav-text">fmt.Printf使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.0.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打印"><span class="nav-number">1.0.2.</span> <span class="nav-text">打印</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一般"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">一般</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#布尔"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">布尔</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#整数"><span class="nav-number">1.0.2.3.</span> <span class="nav-text">整数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#浮点数及其复合构成"><span class="nav-number">1.0.2.4.</span> <span class="nav-text">浮点数及其复合构成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串与字节切片"><span class="nav-number">1.0.2.5.</span> <span class="nav-text">字符串与字节切片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#指针"><span class="nav-number">1.0.2.6.</span> <span class="nav-text">指针</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意"><span class="nav-number">1.0.3.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扫描"><span class="nav-number">1.0.4.</span> <span class="nav-text">扫描</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">刘涛</p>
+  <div class="site-description" itemprop="description">好好写代码，开发优质产品。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备19032471号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">2019-2020 chdliutao.top 版权所有</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

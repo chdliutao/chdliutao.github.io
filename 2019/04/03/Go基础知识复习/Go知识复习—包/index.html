@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"chdliutao.top","root":"/","scheme":"Pisces","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Go知识复习—包定义包一个包可以简单理解为一个存放.go文件的文件夹。 该文件夹下面的所有go文件都要在代码的第一行添加如下代码，声明该文件归属的包。 1package 包名  注意事项：  一个文件夹下面直接包含的文件只能归属一个package，同样一个package的文件不能在多个文件夹下。 包名可以不和文件夹的名字一样，包名不能包含 - 符号。 包名为main的包为应用程序的入口包，这种包编">
+<meta name="keywords" content="Go,编程语言,基础知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Go知识复习-包">
+<meta property="og:url" content="http:&#x2F;&#x2F;chdliutao.top&#x2F;2019&#x2F;04&#x2F;03&#x2F;Go%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0&#x2F;Go%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0%E2%80%94%E5%8C%85&#x2F;index.html">
+<meta property="og:site_name" content="CHD-刘涛">
+<meta property="og:description" content="Go知识复习—包定义包一个包可以简单理解为一个存放.go文件的文件夹。 该文件夹下面的所有go文件都要在代码的第一行添加如下代码，声明该文件归属的包。 1package 包名  注意事项：  一个文件夹下面直接包含的文件只能归属一个package，同样一个package的文件不能在多个文件夹下。 包名可以不和文件夹的名字一样，包名不能包含 - 符号。 包名为main的包为应用程序的入口包，这种包编">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.liwenzhou.com&#x2F;images&#x2F;Go&#x2F;package&#x2F;init01.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.liwenzhou.com&#x2F;images&#x2F;Go&#x2F;package&#x2F;init02.png">
+<meta property="og:updated_time" content="2020-07-02T07:31:30.167Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;www.liwenzhou.com&#x2F;images&#x2F;Go&#x2F;package&#x2F;init01.png">
+
+<link rel="canonical" href="http://chdliutao.top/2019/04/03/Go%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/Go%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0%E2%80%94%E5%8C%85/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>Go知识复习-包 | CHD-刘涛</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CHD-刘涛</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">个人博客</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://chdliutao.top/2019/04/03/Go%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/Go%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0%E2%80%94%E5%8C%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="刘涛">
+      <meta itemprop="description" content="好好写代码，开发优质产品。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CHD-刘涛">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Go知识复习-包
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-03 00:00:00" itemprop="dateCreated datePublished" datetime="2019-04-03T00:00:00+08:00">2019-04-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-02 15:31:30" itemprop="dateModified" datetime="2020-07-02T15:31:30+08:00">2020-07-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Go编程</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Go知识复习—包"><a href="#Go知识复习—包" class="headerlink" title="Go知识复习—包"></a>Go知识复习—包</h1><h3 id="定义包"><a href="#定义包" class="headerlink" title="定义包"></a>定义包</h3><p>一个包可以简单理解为一个存放<code>.go</code>文件的文件夹。 该文件夹下面的所有go文件都要在代码的第一行添加如下代码，声明该文件归属的包。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> 包名</span><br></pre></td></tr></table></figure>
+
+<p>注意事项：</p>
+<ul>
+<li>一个文件夹下面直接包含的文件只能归属一个<code>package</code>，同样一个<code>package</code>的文件不能在多个文件夹下。</li>
+<li>包名可以不和文件夹的名字一样，包名不能包含 <code>-</code> 符号。</li>
+<li>包名为<code>main</code>的包为应用程序的入口包，这种包编译后会得到一个可执行文件，而编译不包含<code>main</code>包的源代码则不会得到可执行文件。</li>
+</ul>
+<h3 id="可见性"><a href="#可见性" class="headerlink" title="可见性"></a>可见性</h3><p>如果想在一个包中引用另外一个包里的标识符（如变量、常量、类型、函数等）时，该标识符必须是对外可见的（public）。在Go语言中只需要将标识符的首字母大写就可以让标识符对外可见了。</p>
+<p>举个例子， 我们定义一个包名为<code>pkg2</code>的包，代码如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> pkg2</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 包变量可见性</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="number">100</span> <span class="comment">// 首字母小写，外部包不可见，只能在当前包内使用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 首字母大写外部包可见，可在其他包中使用</span></span><br><span class="line"><span class="keyword">const</span> Mode = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> person <span class="keyword">struct</span> &#123; <span class="comment">// 首字母小写，外部包不可见，只能在当前包内使用</span></span><br><span class="line">	name <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 首字母大写，外部包可见，可在其他包中使用</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Add</span><span class="params">(x, y <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">age</span><span class="params">()</span></span> &#123; <span class="comment">// 首字母小写，外部包不可见，只能在当前包内使用</span></span><br><span class="line">	<span class="keyword">var</span> Age = <span class="number">18</span> <span class="comment">// 函数局部变量，外部包不可见，只能在当前函数内使用</span></span><br><span class="line">	fmt.Println(Age)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结构体中的字段名和接口中的方法名如果首字母都是大写，外部包可以访问这些字段和方法。例如：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Student <span class="keyword">struct</span> &#123;</span><br><span class="line">	Name  <span class="keyword">string</span> <span class="comment">//可在包外访问的方法</span></span><br><span class="line">	class <span class="keyword">string</span> <span class="comment">//仅限包内访问的字段</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Payer <span class="keyword">interface</span> &#123;</span><br><span class="line">	init() <span class="comment">//仅限包内访问的方法</span></span><br><span class="line">	Pay()  <span class="comment">//可在包外访问的方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="包的导入"><a href="#包的导入" class="headerlink" title="包的导入"></a>包的导入</h3><p>要在代码中引用其他包的内容，需要使用<code>import</code>关键字导入使用的包。具体语法如下:</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"包的路径"</span></span><br></pre></td></tr></table></figure>
+
+<p>注意事项：</p>
+<ul>
+<li>import导入语句通常放在文件开头包声明语句的下面。</li>
+<li>导入的包名需要使用双引号包裹起来。</li>
+<li>包名是从<code>$GOPATH/src/</code>后开始计算的，使用<code>/</code>进行路径分隔。</li>
+<li>Go语言中禁止循环导入包。</li>
+</ul>
+<h3 id="单行导入"><a href="#单行导入" class="headerlink" title="单行导入"></a>单行导入</h3><p>单行导入的格式如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"包1"</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">"包2"</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="多行导入"><a href="#多行导入" class="headerlink" title="多行导入"></a>多行导入</h3><p>多行导入的格式如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"包1"</span></span><br><span class="line">    <span class="string">"包2"</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义包名"><a href="#自定义包名" class="headerlink" title="自定义包名"></a>自定义包名</h3><p>在导入包名的时候，我们还可以为导入的包设置别名。通常用于导入的包名太长或者导入的包名冲突的情况。具体语法格式如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> 别名 <span class="string">"包的路径"</span></span><br></pre></td></tr></table></figure>
+
+<p>单行导入方式定义别名：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"><span class="keyword">import</span> m <span class="string">"github.com/Q1mi/studygo/pkg_test"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(m.Add(<span class="number">100</span>, <span class="number">200</span>))</span><br><span class="line">	fmt.Println(m.Mode)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>多行导入方式定义别名：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    m <span class="string">"github.com/Q1mi/studygo/pkg_test"</span></span><br><span class="line"> )</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(m.Add(<span class="number">100</span>, <span class="number">200</span>))</span><br><span class="line">	fmt.Println(m.Mode)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="匿名导入包"><a href="#匿名导入包" class="headerlink" title="匿名导入包"></a>匿名导入包</h3><p>如果只希望导入包，而不使用包内部的数据时，可以使用匿名导入包。具体的格式如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> _ <span class="string">"包的路径"</span></span><br></pre></td></tr></table></figure>
+
+<p>匿名导入的包与其他方式导入的包一样都会被编译到可执行文件中。</p>
+<h3 id="init-初始化函数"><a href="#init-初始化函数" class="headerlink" title="init()初始化函数"></a>init()初始化函数</h3><h4 id="init-函数介绍"><a href="#init-函数介绍" class="headerlink" title="init()函数介绍"></a>init()函数介绍</h4><p>在Go语言程序执行时导入包语句会自动触发包内部<code>init()</code>函数的调用。需要注意的是： <code>init()</code>函数没有参数也没有返回值。 <code>init()</code>函数在程序运行时自动被调用执行，不能在代码中主动调用它。</p>
+<p>包初始化执行的顺序如下图所示：<img src="https://www.liwenzhou.com/images/Go/package/init01.png" alt="包中的init()执行时机"></p>
+<h4 id="init-函数执行顺序"><a href="#init-函数执行顺序" class="headerlink" title="init()函数执行顺序"></a>init()函数执行顺序</h4><p>Go语言包会从<code>main</code>包开始检查其导入的所有包，每个包中又可能导入了其他的包。Go编译器由此构建出一个树状的包引用关系，再根据引用顺序决定编译顺序，依次编译这些包的代码。</p>
+<p>在运行时，被最后导入的包会最先初始化并调用其<code>init()</code>函数， 如下图示：<img src="https://www.liwenzhou.com/images/Go/package/init02.png" alt="包之间的init()执行顺序"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Go/" rel="tag"># Go</a>
+              <a href="/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/" rel="tag"># 编程语言</a>
+              <a href="/tags/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="tag"># 基础知识</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/04/03/Go%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/Go%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0%E2%80%94%E5%8F%8D%E5%B0%84/" rel="prev" title="Go知识复习-反射">
+      <i class="fa fa-chevron-left"></i> Go知识复习-反射
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/04/03/Go%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0/Go%E7%9F%A5%E8%AF%86%E5%A4%8D%E4%B9%A0%E2%80%94%E5%88%87%E7%89%87/" rel="next" title="Go知识复习-切片">
+      Go知识复习-切片 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Go知识复习—包"><span class="nav-number">1.</span> <span class="nav-text">Go知识复习—包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义包"><span class="nav-number">1.0.1.</span> <span class="nav-text">定义包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可见性"><span class="nav-number">1.0.2.</span> <span class="nav-text">可见性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#包的导入"><span class="nav-number">1.0.3.</span> <span class="nav-text">包的导入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单行导入"><span class="nav-number">1.0.4.</span> <span class="nav-text">单行导入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多行导入"><span class="nav-number">1.0.5.</span> <span class="nav-text">多行导入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义包名"><span class="nav-number">1.0.6.</span> <span class="nav-text">自定义包名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#匿名导入包"><span class="nav-number">1.0.7.</span> <span class="nav-text">匿名导入包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#init-初始化函数"><span class="nav-number">1.0.8.</span> <span class="nav-text">init()初始化函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#init-函数介绍"><span class="nav-number">1.0.8.1.</span> <span class="nav-text">init()函数介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#init-函数执行顺序"><span class="nav-number">1.0.8.2.</span> <span class="nav-text">init()函数执行顺序</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">刘涛</p>
+  <div class="site-description" itemprop="description">好好写代码，开发优质产品。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备19032471号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">2019-2020 chdliutao.top 版权所有</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
